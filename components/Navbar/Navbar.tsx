@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import SearchIcon from "./icons/SearchIcon";
 import HomeIcon from "./icons/HomeIcon";
@@ -12,10 +14,15 @@ import PlusIcon from "./icons/PlusIcon";
 import DownIcon from "./icons/DownIcon";
 import MenuIcon from "./icons/MenuIcon";
 
-const Navbar = () => {
+interface NavbarProps {
+  onToggle: () => void;
+  isOpen: boolean;
+}
+
+const Navbar = ({ onToggle, isOpen }: NavbarProps) => {
   return (
     <nav className="p-4 md:p-6 w-full flex items-center justify-between gap-1 lg:gap-3 bg-white">
-      <div className="flex items-center justify-between w-full md:w-auto lg:justify-start gap-3 lg:gap-6">
+      <div className="flex items-center justify-between w-full relative md:w-auto lg:justify-start gap-3 lg:gap-6">
         <Link href="/" className="cursor-pointer">
           <Image
             src="/images/logo.png"
@@ -36,7 +43,12 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Icon */}
-        <button className="cursor-pointer md:hidden">
+        <button
+          onClick={onToggle}
+          className={`cursor-pointer md:hidden ${
+            isOpen ? "fixed right-6 top-6" : ""
+          } hover:scale-105 z-50 transition-transform duration-200 ease-in-out`}
+        >
           <MenuIcon />
         </button>
       </div>
@@ -103,7 +115,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="hidden lg:flex items-center gap-2 ml-3">
+        <div className="hidden lg:flex items-center cursor-pointer gap-2 ml-3">
           <Image
             src="/images/profile.jpg"
             width={52}
