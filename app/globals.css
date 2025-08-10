@@ -43,6 +43,10 @@
   /* custom styles */
   --color-custom-primary: var(--custom-primary);
   --color-custom-primary-hover: var(--custom-primary-hover);
+  --color-custom-secondary: var(--custom-secondary);
+  --color-custom-black: var(--custom-black);
+  --color-custom-red: var(--custom-red);
+  --color-custom-red-hover: var(--custom-red-hover);
 }
 
 :root {
@@ -82,7 +86,10 @@
   /* custom styles */
   --custom-primary: #0D6EFD;
   --custom-primary-hover: #0B5ED7;
-
+  --custom-secondary: #647995;
+  --custom-black: #1D2433;
+  --custom-red: #FBEAE9;
+  --custom-red-hover: #e9d1d3;
 }
 
 .dark {

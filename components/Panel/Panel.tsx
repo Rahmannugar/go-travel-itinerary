@@ -50,7 +50,7 @@ const Panel = ({ isOpen }: { isOpen: boolean }) => {
       className={`
       fixed md:relative top-0 left-0 w-full h-screen md:h-[800px] bg-white 
       transition-transform duration-300 ease-in-out z-30
-      md:translate-x-0 md:w-[270px] lg:w-[300px]
+      md:translate-x-0 md:w-[270px] lg:min-w-[300px]
       ${isOpen ? "translate-x-0" : "-translate-x-full"}
     `}
     >

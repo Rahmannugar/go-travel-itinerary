@@ -57,31 +57,31 @@ const Navbar = ({ onToggle, isOpen }: NavbarProps) => {
         <div className="hidden md:flex items-center md:gap-6">
           <div className="flex flex-col items-center cursor-pointer">
             <HomeIcon />
-            <h3 className="font-medium text-[#647995] text-xs lg:text-sm">
+            <h3 className="font-medium text-custom-secondary text-xs lg:text-sm">
               Home
             </h3>
           </div>
           <div className="flex flex-col items-center cursor-pointer">
             <ChartIcon />
-            <h3 className="font-medium text-[#647995] text-xs lg:text-sm">
+            <h3 className="font-medium text-custom-secondary text-xs lg:text-sm">
               Dashboard
             </h3>
           </div>
           <div className="flex flex-col items-center cursor-pointer">
             <WalletIcon />
-            <h3 className="font-medium text-[#647995] text-xs lg:text-sm">
+            <h3 className="font-medium text-custom-secondary text-xs lg:text-sm">
               Wallet
             </h3>
           </div>
           <div className="flex flex-col items-center cursor-pointer">
             <ListIcon />
-            <h3 className="font-medium text-[#647995] text-xs lg:text-sm">
+            <h3 className="font-medium text-custom-secondary text-xs lg:text-sm">
               Plan a trip
             </h3>
           </div>
           <div className="flex flex-col items-center cursor-pointer">
             <HandIcon />
-            <h3 className="font-medium text-[#647995] text-xs lg:text-sm">
+            <h3 className="font-medium text-custom-secondary text-xs lg:text-sm">
               Commission for life
             </h3>
           </div>
@@ -95,21 +95,21 @@ const Navbar = ({ onToggle, isOpen }: NavbarProps) => {
 
           <div className="flex flex-col items-center cursor-pointer">
             <BellIcon />
-            <h3 className="font-medium text-[#647995] text-xs lg:text-sm">
+            <h3 className="font-medium text-custom-secondary text-xs lg:text-sm">
               Notification
             </h3>
           </div>
 
           <div className="flex flex-col items-center cursor-pointer">
             <BasketIcon />
-            <h3 className="font-medium text-[#647995] text-xs lg:text-sm">
+            <h3 className="font-medium text-custom-secondary text-xs lg:text-sm">
               Carts
             </h3>
           </div>
 
           <div className="flex flex-col items-center cursor-pointer">
             <PlusIcon />
-            <h3 className="font-medium text-[#647995] text-xs lg:text-sm">
+            <h3 className="font-medium text-custom-secondary text-xs lg:text-sm">
               Create
             </h3>
           </div>
