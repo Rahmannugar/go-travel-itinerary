@@ -1,3 +1,4 @@
+import EmptyFlight from "./EmptyFlight";
 import FlightList from "./FlightList";
 import AirplaneIcon from "./icons/AirplaneIcon";
 
@@ -19,7 +20,8 @@ const FlightSection = () => {
         </div>
 
         <article className="mt-6">
-          <FlightList />
+          {/* <FlightList /> */}
+          <EmptyFlight />
         </article>
       </div>
     </section>

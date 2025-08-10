@@ -12,10 +12,12 @@ const Home = () => {
   return (
     <main className="min-h-screen bg-background">
       <Navbar onToggle={handleToggle} isOpen={isOpen} />
-      <div className="md:flex md:items-start justify-between gap-6 xl:gap-10 p-4 md:p-6">
+      {/* Add width constraint to the flex container */}
+      <div className="md:flex md:items-start justify-between gap-6 xl:gap-10 p-4 md:p-6 max-w-[1800px] mx-auto">
         <Panel isOpen={isOpen} />
 
-        <div className="flex-1 bg-white max-w-[1500px]">
+        {/* Remove flex-1 since we'll use width constraints */}
+        <div className="w-full max-w-[1500px] bg-white">
           <Itinerary />
           <FlightSection />
         </div>

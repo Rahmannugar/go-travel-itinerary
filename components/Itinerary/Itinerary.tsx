@@ -1,5 +1,6 @@
 import Image from "next/image";
 import SettingsIcon from "./icons/SettingsIcon";
+import Link from "next/link";
 
 const Itinerary = () => {
   return (
@@ -30,39 +31,48 @@ const Itinerary = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-2">
           {/* Activities Bar */}
-          <div className="bg-[#000031] p-4 gap-2 flex flex-col text-white rounded w-full md:max-w-[270px] h-[193px] md:h-[210px]">
+          <div className="bg-[#000031] p-4 gap-2 flex flex-col text-white rounded w-full md:max-w-[270px] h-full">
             <h1 className="font-semibold">Activities</h1>
             <p className="max-w-[242px] text-sm">
               Build, personalize, and optimize your itineraries with our trip
               planner.
             </p>
-            <button className="font-medium text-sm cursor-pointer hover:bg-white hover:text-custom-primary transition-colors ease-in-out bg-custom-primary w-full py-3 mt-3 rounded">
+            <Link
+              href="/activities/add-activity"
+              className="font-medium text-sm cursor-pointer hover:bg-white hover:text-custom-primary transition-colors ease-in-out bg-custom-primary w-full py-3 text-center mt-3 md:mt-7 rounded"
+            >
               Add Activities
-            </button>
+            </Link>
           </div>
 
           {/* Hotels Bar */}
-          <div className="bg-[#E7F0FF] p-4 gap-2 flex flex-col text-custom-black rounded w-full md:max-w-[270px] h-[193px] md:h-[210px]">
+          <div className="bg-[#E7F0FF] p-4 gap-2 flex flex-col text-custom-black rounded w-full md:max-w-[270px] h-full">
             <h1 className="font-semibold">Hotels</h1>
             <p className="max-w-[242px] text-sm">
               Build, personalize, and optimize your itineraries with our trip
               planner.
             </p>
-            <button className="font-medium text-sm cursor-pointer hover:bg-white hover:text-custom-primary transition-colors ease-in-out duration-300 bg-custom-primary w-full py-3 mt-3 rounded">
+            <Link
+              href="/hotels/add-hotel"
+              className="font-medium text-sm cursor-pointer hover:bg-white hover:text-custom-primary transition-colors ease-in-out duration-300 bg-custom-primary w-full py-3 text-center mt-3 md:mt-7 rounded"
+            >
               Add Hotels
-            </button>
+            </Link>
           </div>
 
           {/* Flights Bar */}
-          <div className="bg-custom-primary p-4 gap-2 flex flex-col text-white rounded w-full md:max-w-[270px] h-[193px] md:h-[210px]">
+          <div className="bg-custom-primary p-4 gap-2 flex flex-col text-white rounded w-full md:max-w-[270px] h-full">
             <h1 className="font-semibold">Flights</h1>
             <p className="max-w-[242px] text-sm">
               Build, personalize, and optimize your itineraries with our trip
               planner.
             </p>
-            <button className="font-medium text-sm cursor-pointer hover:bg-[#E7F0FF] hover:text-custom-black transition-colors ease-in-out duration-200 bg-white text-custom-primary w-full py-3 mt-3 rounded">
+            <Link
+              href="/flights/add-flight"
+              className="font-medium text-sm cursor-pointer hover:bg-[#E7F0FF] hover:text-custom-black transition-colors ease-in-out duration-200 bg-white text-custom-primary w-full py-3 text-center mt-3 md:mt-7 rounded"
+            >
               Add Flights
-            </button>
+            </Link>
           </div>
         </div>
       </div>
