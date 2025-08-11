@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Activity } from "@/lib/schemas/activity";
+import { useItineraryStore } from "./itineraryStore";
 
 interface ActivitiesState {
   activities: Activity[];
@@ -12,14 +13,20 @@ export const useActivitiesStore = create<ActivitiesState>()(
   persist(
     (set) => ({
       activities: [],
-      addActivity: (activity) =>
+      addActivity: (activity) => {
         set((state) => ({
           activities: [...state.activities, activity],
-        })),
-      removeActivity: (id) =>
+        }));
+        // Update global itinerary store
+        useItineraryStore.getState().addActivity(activity);
+      },
+      removeActivity: (id) => {
         set((state) => ({
           activities: state.activities.filter((a) => a.id !== id),
-        })),
+        }));
+        // Update global itinerary store
+        useItineraryStore.getState().removeActivity(id);
+      },
     }),
     { name: "activities-storage" }
   )

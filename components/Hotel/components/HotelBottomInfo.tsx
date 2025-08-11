@@ -1,8 +1,13 @@
 import { WineIcon } from "lucide-react";
 import PoolIcon from "../icons/PoolIcon";
 import DateIcon from "../icons/DateIcon";
+import { Hotel } from "@/lib/schemas/hotel";
 
-const HotelBottomInfo = () => {
+interface HotelBottomInfoProps {
+  hotel: Hotel;
+}
+
+const HotelBottomInfo = ({ hotel }: HotelBottomInfoProps) => {
   return (
     <div className="p-4 flex items-center justify-between flex-wrap gap-2 text-custom-secondary">
       <div className="flex items-center gap-3">
@@ -21,12 +26,16 @@ const HotelBottomInfo = () => {
       <div className="flex items-center flex-wrap gap-3">
         <div className="flex items-center gap-2">
           <DateIcon />
-          <span className="text-sm font-medium">Check-in: 20-04-2024</span>
+          <span className="text-sm font-medium">
+            Check-in: {new Date(hotel.checkinDate!).toLocaleDateString()}
+          </span>
         </div>
 
         <div className="flex items-center gap-2">
           <DateIcon />
-          <span className="text-sm font-medium">Check-out: 29-04-2024</span>
+          <span className="text-sm font-medium">
+            Check-out: {new Date(hotel.checkoutDate!).toLocaleDateString()}
+          </span>
         </div>
       </div>
     </div>

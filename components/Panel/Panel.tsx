@@ -12,7 +12,12 @@ import StudyIcon from "./icons/StudyIcon";
 import { SuitcaseIcon } from "./icons/SuitcaseIcon";
 import VisaIcon from "./icons/VisaIcon";
 
-const Panel = ({ isOpen }: { isOpen: boolean }) => {
+interface PanelProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const Panel = ({ isOpen, onClose }: PanelProps) => {
   const { isActiveRoute } = useNavigation();
   const routeableItems = ["Flights", "Hotels", "Activities"];
 
@@ -68,6 +73,7 @@ const Panel = ({ isOpen }: { isOpen: boolean }) => {
               ? "text-custom-primary"
               : ""
           }`}
+          onClick={onClose}
         >
           {item.icon}
           <span className="text-sm text-[#647995]">{item.name}</span>
@@ -76,7 +82,7 @@ const Panel = ({ isOpen }: { isOpen: boolean }) => {
     }
 
     return (
-      <div key={index} className={baseClasses}>
+      <div key={index} className={baseClasses} onClick={onClose}>
         {item.icon}
         <span className="text-sm text-[#647995]">{item.name}</span>
       </div>

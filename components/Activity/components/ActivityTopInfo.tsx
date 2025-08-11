@@ -1,29 +1,33 @@
 import LocationIcon from "@/components/icons/LocationIcon";
 import RatingsIcon from "@/components/icons/RatingsIcon";
 import TimeIcon from "../icons/TimeIcon";
+import { Activity } from "@/lib/schemas/activity";
 
-const ActivityTopInfo = () => {
+interface ActivityTopInfoProps {
+  activity: Activity;
+}
+
+const ActivityTopInfo = ({ activity }: ActivityTopInfoProps) => {
   return (
     <div className="flex flex-col lg:flex-row justify-between items-start gap-3 px-4 pb-4 sm:pt-4 md:pt-6">
       <div className="flex flex-col gap-2">
         <h2 className="text-custom-black font-semibold lg:text-lg">
-          The Museum of Modern Art
+          {activity.name}
         </h2>
         <p className="text-custom-black font-medium md:max-w-[445px] text-sm">
-          Works from Van Gogh to Warhol & beyond plus a sculpture garden, 2
-          cafes & The modern restaurant
+          {activity.shortDescription}
         </p>
 
         <div className="flex flex-wrap items-center gap-2 lg:gap-5">
           <div className="text-custom-primary text-xs md:text-sm font-medium flex items-center gap-1">
             <LocationIcon />
-            <span>Directions</span>
+            <span>{activity.ufiDetails?.bCityName}</span>
           </div>
 
           <div className="flex items-center gap-1 text-[#676E7E] text-xs md:text-sm font-medium">
             <RatingsIcon />
-            <span>4.5</span>
-            <span>(234)</span>
+            <span>{activity.reviewsStats?.combinedNumericStats?.average}</span>
+            <span>({activity.reviewsStats?.allReviewsCount})</span>
           </div>
 
           <div className="flex items-center gap-1 text-[#676E7E] text-xs md:text-sm font-medium">
@@ -35,7 +39,10 @@ const ActivityTopInfo = () => {
 
       <div className="flex flex-col">
         <h2 className="text-custom-black font-semibold text-lg lg:text-xl">
-          N123,000.00
+          {activity.representativePrice?.chargeAmount?.toLocaleString("en-NG", {
+            style: "currency",
+            currency: activity.representativePrice?.currency || "NGN",
+          })}
         </h2>
         <span className="text-custom-black font-medium text-sm">
           10:30 AM on Mar 19

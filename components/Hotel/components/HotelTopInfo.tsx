@@ -1,17 +1,21 @@
 import LocationIcon from "@/components/icons/LocationIcon";
 import RatingsIcon from "@/components/icons/RatingsIcon";
 import BedIcon from "../icons/BedIcon";
+import { Hotel } from "@/lib/schemas/hotel";
 
-const HotelTopInfo = () => {
+interface HotelTopInfoProps {
+  hotel: Hotel;
+}
+
+const HotelTopInfo = ({ hotel }: HotelTopInfoProps) => {
   return (
     <div className="flex flex-col lg:flex-row justify-between items-start gap-3 px-4 pb-4 sm:pt-4 md:pt-6">
       <div className="flex flex-col gap-2">
         <h2 className="text-custom-black font-semibold lg:text-lg">
-          River Resort, Lekki
+          {hotel.name}
         </h2>
         <p className="text-custom-black font-medium md:max-w-[445px] text-sm">
-          18, Kenneth Agbakuru Street, Off Access Bank Admiralty Way, Lekki
-          Phase1
+          {hotel.accessibilityLabel}
         </p>
 
         <div className="flex flex-wrap items-center gap-2 lg:gap-5">
@@ -22,8 +26,8 @@ const HotelTopInfo = () => {
 
           <div className="flex items-center gap-1 text-[#676E7E] text-xs md:text-sm font-medium">
             <RatingsIcon />
-            <span>8.5</span>
-            <span>(834)</span>
+            <span>{hotel.reviewScore}</span>
+            <span>({hotel.reviewCount})</span>
           </div>
 
           <div className="flex items-center gap-1 text-[#676E7E] text-xs md:text-sm font-medium">
@@ -35,10 +39,20 @@ const HotelTopInfo = () => {
 
       <div className="flex flex-col">
         <h2 className="text-custom-black font-semibold text-lg lg:text-xl">
-          N123,000.00
+          {hotel.priceBreakdown?.strikethroughPrice?.value.toLocaleString(
+            "en-NG",
+            {
+              style: "currency",
+              currency: "NGN",
+            }
+          )}
         </h2>
         <span className="text-custom-black font-medium text-sm">
-          Total Price: NGN 560,000
+          Total Price:{" "}
+          {hotel.priceBreakdown?.grossPrice?.value.toLocaleString("en-NG", {
+            style: "currency",
+            currency: "NGN",
+          })}
         </span>
         <span className="text-custom-black font-medium text-sm">
           1 room x 10 nights incl. taxes
@@ -47,4 +61,5 @@ const HotelTopInfo = () => {
     </div>
   );
 };
+
 export default HotelTopInfo;

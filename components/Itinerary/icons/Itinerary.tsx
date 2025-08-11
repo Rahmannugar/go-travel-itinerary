@@ -1,5 +1,5 @@
 import Image from "next/image";
-import SettingsIcon from "./icons/SettingsIcon";
+import SettingsIcon from "./SettingsIcon";
 import Link from "next/link";
 
 const Itinerary = () => {

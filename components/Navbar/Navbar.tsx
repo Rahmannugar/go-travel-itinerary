@@ -16,10 +16,9 @@ import MenuIcon from "./icons/MenuIcon";
 
 interface NavbarProps {
   onToggle: () => void;
-  isOpen: boolean;
 }
 
-const Navbar = ({ onToggle, isOpen }: NavbarProps) => {
+const Navbar = ({ onToggle }: NavbarProps) => {
   return (
     <nav className="fixed top-0 left-0 right-0 p-4 md:p-6 w-full flex items-center justify-between gap-1 lg:gap-3 bg-white z-40 border-b border-gray-100">
       <div className="flex items-center justify-between w-full relative md:w-auto lg:justify-start gap-3 lg:gap-6">
