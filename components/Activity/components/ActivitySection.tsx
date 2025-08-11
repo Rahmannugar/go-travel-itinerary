@@ -9,7 +9,7 @@ const ActivitySection = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <ActivityIcon />
-            <h1 className="text-white text-lg font-semibold">Hotels</h1>
+            <h1 className="text-white text-lg font-semibold">Activities</h1>
           </div>
 
           <div>
