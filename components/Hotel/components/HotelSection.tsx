@@ -7,7 +7,7 @@ import HotelIcon from "../icons/HotelIcon";
 import { useHotelsStore } from "@/lib/stores/hotelStore";
 
 const mockHotel = {
-  id: Math.floor(Math.random() * 1000),
+  id: crypto.randomUUID(),
   name: "River Resort, Lekki",
   accessibilityLabel:
     "18, Kenneth Agbakuru Street, Off Access Bank Admiralty Way, Lekki Phase1",
@@ -32,7 +32,7 @@ const HotelSection = () => {
   const { hotels, addHotel, removeHotel } = useHotelsStore();
 
   const handleAddHotel = () => {
-    addHotel({ ...mockHotel, id: Math.floor(Math.random() * 1000) });
+    addHotel({ ...mockHotel, id: crypto.randomUUID() });
     toast.success("Hotel added successfully!");
   };
 
@@ -41,11 +41,11 @@ const HotelSection = () => {
     toast.success("Hotel removed successfully!");
 
     const updatedHotels = useHotelsStore.getState().hotels;
-  if (updatedHotels.length === 0) {
-    toast("No hotels in your itinerary", {
-      description: "Add hotels to your travel plan",
-    });
-  }
+    if (updatedHotels.length === 0) {
+      toast("No hotels in your itinerary", {
+        description: "Add hotels to your travel plan",
+      });
+    }
   };
 
   return (

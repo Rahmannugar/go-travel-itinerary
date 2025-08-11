@@ -6,7 +6,7 @@ import { useItineraryStore } from "./itineraryStore";
 interface HotelsState {
   hotels: Hotel[];
   addHotel: (hotel: Hotel) => void;
-  removeHotel: (id: number) => void;
+  removeHotel: (id: string) => void;
 }
 
 export const useHotelsStore = create<HotelsState>()(
@@ -19,15 +19,14 @@ export const useHotelsStore = create<HotelsState>()(
             ? state.hotels
             : [...state.hotels, hotel],
         }));
-        // Updating global itinerary store
-        useItineraryStore.getState().addHotel(hotel);
+        useItineraryStore.getState().addHotelId(hotel.id);
       },
       removeHotel: (id) => {
         set((state) => ({
-          hotels: state.hotels.filter((h) => h.id !== id),
+          hotels: state.hotels.filter((hotel) => hotel.id !== id),
         }));
         // Update global itinerary store
-        useItineraryStore.getState().removeHotel(id);
+        useItineraryStore.getState().removeHotelId(id);
       },
     }),
     { name: "hotels-storage" }

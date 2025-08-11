@@ -18,14 +18,14 @@ export const useActivitiesStore = create<ActivitiesState>()(
           activities: [...state.activities, activity],
         }));
         // Update global itinerary store
-        useItineraryStore.getState().addActivity(activity);
+        useItineraryStore.getState().addActivityId(activity.id);
       },
       removeActivity: (id) => {
         set((state) => ({
-          activities: state.activities.filter((a) => a.id !== id),
+          activities: state.activities.filter((activity) => activity.id !== id),
         }));
         // Update global itinerary store
-        useItineraryStore.getState().removeActivity(id);
+        useItineraryStore.getState().removeActivityId(id);
       },
     }),
     { name: "activities-storage" }
