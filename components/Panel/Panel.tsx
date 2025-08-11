@@ -86,24 +86,31 @@ const Panel = ({ isOpen }: { isOpen: boolean }) => {
   return (
     <aside
       className={`
-        fixed md:relative top-0 left-0 w-full h-screen md:h-[800px] bg-white 
-        transition-transform duration-300 ease-in-out z-30
-        md:translate-x-0 md:w-[270px] lg:w-[300px] xl:w-[350px]
-        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        fixed top-0 left-0 w-full h-screen 
+        overflow-y-auto scrollbar-hide
+        bg-white 
+        transition-all duration-300 ease-in-out z-30
+        md:sticky md:top-6 md:h-[calc(100vh-3rem)]
+        md:w-[270px] lg:w-[300px] xl:w-[350px]
+        ${
+          isOpen
+            ? "translate-x-0 pt-20"
+            : "-translate-x-full pt-0 md:translate-x-0"
+        }
       `}
     >
       <div className="p-10">
         {panelItems.map((item, index) => renderPanelItem(item, index))}
       </div>
 
-      <div className="bg-background h-[86px] px-4 mx-6 flex items-center gap-2 justify-between">
-        <div className="bg-custom-primary cursor-pointer p-3 rounded flex items-center hover:scale-105 transition-transform duration-200 ease-in-out hover:bg-custom-primary-hover">
+      <div className="bg-background h-[86px] px-4 mx-6 flex items-center gap-2 justify-between sticky bottom-0 left-0">
+        <div className="bg-custom-primary cursor-pointer p-3 rounded flex items-center hover:scale-105 active:scale-105 transition-transform duration-200 ease-out active:hover:bg-custom-primary-hover">
           <span className="text-sm text-white">Go</span>
         </div>
 
         <span className="text-xs text-[#647995]">Personal Account</span>
 
-        <div className="cursor-pointer hover:scale-110 transition-transform duration-200 ease-in-out">
+        <div className="cursor-pointer hover:scale-110 active:scale-110 transition-transform duration-200 ease-out">
           <NavigationIcon />
         </div>
       </div>

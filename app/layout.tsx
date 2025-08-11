@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import LayoutClient from "./LayoutClient";
 
 export const metadata: Metadata = {
   title: "Go Travel Itinerary",
@@ -38,7 +39,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${fontPoppins.className} antialiased`}>{children}</body>
+      <body className={`${fontPoppins.className} antialiased`}>
+        <LayoutClient>{children}</LayoutClient>
+      </body>
     </html>
   );
 }

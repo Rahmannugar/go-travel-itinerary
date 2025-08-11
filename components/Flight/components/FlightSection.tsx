@@ -1,6 +1,6 @@
 import EmptyFlight from "./EmptyFlight";
 import FlightList from "./FlightList";
-import AirplaneIcon from "./icons/AirplaneIcon";
+import AirplaneIcon from "../icons/AirplaneIcon";
 
 const FlightSection = () => {
   return (

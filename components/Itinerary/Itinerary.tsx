@@ -4,15 +4,16 @@ import Link from "next/link";
 
 const Itinerary = () => {
   return (
-    <section className=" p-4 md:p-6">
-      <Image
-        src="/images/banner.jpg"
-        alt="Travel Banner"
-        height={400}
-        width={1412}
-        priority
-        className="h-[130px] lg:h-[150px] w-full object-cover"
-      />
+    <section className="p-4 md:p-6">
+      <div className="w-full h-[130px] lg:h-[150px] relative">
+        <Image
+          src="/images/banner.jpg"
+          alt="Travel Banner"
+          fill
+          priority
+          className="object-cover"
+        />
+      </div>
 
       <div className="md:flex md:flex-row-reverse gap-6 justify-between items-start my-7">
         <div className="flex items-center justify-end mb-7 md:mb-0">
@@ -20,11 +21,11 @@ const Itinerary = () => {
             src="/images/profile.jpg"
             width={52}
             height={52}
-            className="w-[40px] h-[40px] cursor-pointer object-fill hover:scale-105 transition-transform duration-200 ease-in-out"
+            className="w-[40px] h-[40px] cursor-pointer object-fill hover:scale-105 active:scale-105 transition-transform duration-200 ease-out"
             alt="Profile"
           />
           <div className="rounded-lg bg-[#E7F0FF] w-[31px] h-[2px]"></div>
-          <div className="cursor-pointer hover:scale-105 transition-transform duration-200 ease-in-out">
+          <div className="cursor-pointer hover:scale-105 active:scale-105 transition-transform duration-200 ease-out">
             <SettingsIcon />
           </div>
         </div>
@@ -39,7 +40,7 @@ const Itinerary = () => {
             </p>
             <Link
               href="/activities/add-activity"
-              className="font-medium text-sm cursor-pointer hover:bg-white hover:text-custom-primary transition-colors ease-in-out bg-custom-primary w-full py-3 text-center mt-3 md:mt-7 rounded"
+              className="font-medium text-sm cursor-pointer hover:bg-white active:bg-white hover:text-custom-primary active:text-custom-primary transition-colors ease-in-out bg-custom-primary w-full py-3 text-center mt-3 md:mt-7 rounded"
             >
               Add Activities
             </Link>
@@ -69,7 +70,7 @@ const Itinerary = () => {
             </p>
             <Link
               href="/flights/add-flight"
-              className="font-medium text-sm cursor-pointer hover:bg-[#E7F0FF] hover:text-custom-black transition-colors ease-in-out duration-200 bg-white text-custom-primary w-full py-3 text-center mt-3 md:mt-7 rounded"
+              className="font-medium text-sm cursor-pointer hover:bg-[#E7F0FF] hover:text-custom-black active:bg-[#E7F0FF] active:text-custom-black transition-colors ease-in-out duration-200 bg-white text-custom-primary w-full py-3 text-center mt-3 md:mt-7 rounded"
             >
               Add Flights
             </Link>

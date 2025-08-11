@@ -21,7 +21,7 @@ interface NavbarProps {
 
 const Navbar = ({ onToggle, isOpen }: NavbarProps) => {
   return (
-    <nav className="p-4 md:p-6 w-full flex items-center justify-between gap-1 lg:gap-3 bg-white">
+    <nav className="fixed top-0 left-0 right-0 p-4 md:p-6 w-full flex items-center justify-between gap-1 lg:gap-3 bg-white z-40 border-b border-gray-100">
       <div className="flex items-center justify-between w-full relative md:w-auto lg:justify-start gap-3 lg:gap-6">
         <Link href="/" className="cursor-pointer">
           <Image
@@ -45,9 +45,7 @@ const Navbar = ({ onToggle, isOpen }: NavbarProps) => {
         {/* Mobile Menu Icon */}
         <button
           onClick={onToggle}
-          className={`cursor-pointer md:hidden ${
-            isOpen ? "fixed right-6 top-6" : ""
-          } hover:scale-105 z-50 transition-transform duration-200 ease-in-out`}
+          className={`cursor-pointer md:hidden hover:scale-105 active:scale-105 transition-transform duration-200 ease-out`}
         >
           <MenuIcon />
         </button>
@@ -89,7 +87,7 @@ const Navbar = ({ onToggle, isOpen }: NavbarProps) => {
 
         <div className="hidden xl:flex items-center gap-6 ml-6">
           <div className="bg-[#98A2B3] h-[48px] w-[1px]"></div>
-          <button className="text-white font-medium text-sm cursor-pointer  hover:bg-custom-primary-hover transition-colors ease-in-out bg-custom-primary py-3 px-4 rounded">
+          <button className="text-white font-medium text-sm cursor-pointer hover:bg-custom-primary-hover active:bg-custom-primary-hover transition-colors ease-in-out bg-custom-primary py-3 px-4 rounded">
             Subscribe
           </button>
 

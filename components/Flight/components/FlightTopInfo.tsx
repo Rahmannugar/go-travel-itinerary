@@ -1,6 +1,6 @@
-import AirplaneIcon from "./icons/AirplaneIcon";
-import ArrivalIcon from "./icons/ArrivalIcon";
-import DepartureIcon from "./icons/DepartureIcon";
+import AirplaneIcon from "../icons/AirplaneIcon";
+import ArrivalIcon from "../icons/ArrivalIcon";
+import DepartureIcon from "../icons/DepartureIcon";
 
 const FlightTopInfo = () => {
   return (

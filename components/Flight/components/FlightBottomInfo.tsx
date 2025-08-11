@@ -1,7 +1,7 @@
-import CutleryIcon from "./icons/CutleryIcon";
-import FilmIcon from "./icons/FilmIcon";
-import SuitcaseIcon from "./icons/SuitcaseIcon";
-import UsbIcon from "./icons/USBIcon";
+import CutleryIcon from "../icons/CutleryIcon";
+import FilmIcon from "../icons/FilmIcon";
+import SuitcaseIcon from "../icons/SuitcaseIcon";
+import UsbIcon from "../icons/UsbIcon";
 
 const FlightBottomInfo = () => {
   return (

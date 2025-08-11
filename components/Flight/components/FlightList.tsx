@@ -1,4 +1,4 @@
-import DeleteIcon from "../icons/DeleteIcon";
+import DeleteIcon from "../../icons/DeleteIcon";
 import FlightBottomInfo from "./FlightBottomInfo";
 import FlightTopInfo from "./FlightTopInfo";
 
