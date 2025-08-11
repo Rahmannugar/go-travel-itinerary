@@ -20,8 +20,8 @@ const FlightSection = () => {
         </div>
 
         <article className="mt-6">
-          {/* <FlightList /> */}
-          <EmptyFlight />
+          <FlightList />
+          {/* <EmptyFlight /> */}
         </article>
       </div>
     </section>

@@ -1,34 +1,34 @@
 import LocationIcon from "@/components/icons/LocationIcon";
 import RatingsIcon from "@/components/icons/RatingsIcon";
-import BedIcon from "../icons/BedIcon";
+import TimeIcon from "../icons/TimeIcon";
 
-const HotelTopInfo = () => {
+const ActivityTopInfo = () => {
   return (
     <div className="flex flex-col lg:flex-row justify-between items-start gap-3 px-4 pb-4 sm:pt-4 md:pt-6">
       <div className="flex flex-col gap-2">
         <h2 className="text-custom-black font-semibold lg:text-lg">
-          River Resort, Lekki
+          The Museum of Modern Art
         </h2>
         <p className="text-custom-black font-medium md:max-w-[445px] text-sm">
-          18, Kenneth Agbakuru Street, Off Access Bank Admiralty Way, Lekki
-          Phase1
+          Works from Van Gogh to Warhol & beyond plus a sculpture garden, 2
+          cafes & The modern restaurant
         </p>
 
         <div className="flex flex-wrap items-center gap-2 lg:gap-5">
           <div className="text-custom-primary text-xs md:text-sm font-medium flex items-center gap-1">
             <LocationIcon />
-            <span>Show in map</span>
+            <span>Directions</span>
           </div>
 
           <div className="flex items-center gap-1 text-[#676E7E] text-xs md:text-sm font-medium">
             <RatingsIcon />
-            <span>8.5</span>
-            <span>(834)</span>
+            <span>4.5</span>
+            <span>(234)</span>
           </div>
 
           <div className="flex items-center gap-1 text-[#676E7E] text-xs md:text-sm font-medium">
-            <BedIcon />
-            <span>King size room</span>
+            <TimeIcon />
+            <span>1 Hour</span>
           </div>
         </div>
       </div>
@@ -38,13 +38,10 @@ const HotelTopInfo = () => {
           N123,000.00
         </h2>
         <span className="text-custom-black font-medium text-sm">
-          Total Price: NGN 560,000
-        </span>
-        <span className="text-custom-black font-medium text-sm">
-          1 room x 10 nights incl. taxes
+          10:30 AM on Mar 19
         </span>
       </div>
     </div>
   );
 };
-export default HotelTopInfo;
+export default ActivityTopInfo;
