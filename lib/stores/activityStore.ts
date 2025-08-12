@@ -9,7 +9,7 @@ interface ActivitiesState {
   removeActivity: (id: string) => void;
 }
 
-export const useActivitiesStore = create<ActivitiesState>()(
+export const useActivityStore = create<ActivitiesState>()(
   persist(
     (set) => ({
       activities: [],

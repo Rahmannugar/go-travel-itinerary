@@ -40,22 +40,22 @@ const HotelTopInfo = ({ hotel }: HotelTopInfoProps) => {
       <div className="flex flex-col">
         <h2 className="text-custom-black font-semibold text-lg lg:text-xl">
           {hotel.priceBreakdown?.strikethroughPrice?.value.toLocaleString(
-            "en-NG",
+            undefined,
             {
               style: "currency",
-              currency: "NGN",
+              currency: hotel.priceBreakdown?.strikethroughPrice?.currency,
             }
           )}
         </h2>
         <span className="text-custom-black font-medium text-sm">
           Total Price:{" "}
-          {hotel.priceBreakdown?.grossPrice?.value.toLocaleString("en-NG", {
+          {hotel.priceBreakdown?.grossPrice?.value.toLocaleString(undefined, {
             style: "currency",
-            currency: "NGN",
+            currency: hotel.priceBreakdown?.grossPrice?.currency,
           })}
         </span>
         <span className="text-custom-black font-medium text-sm">
-          1 room x 10 nights incl. taxes
+          1 room x 30 nights incl. taxes
         </span>
       </div>
     </div>

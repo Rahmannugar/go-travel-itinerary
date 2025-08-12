@@ -9,7 +9,7 @@ interface HotelsState {
   removeHotel: (id: string) => void;
 }
 
-export const useHotelsStore = create<HotelsState>()(
+export const useHotelStore = create<HotelsState>()(
   persist(
     (set) => ({
       hotels: [],

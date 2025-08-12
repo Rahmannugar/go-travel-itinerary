@@ -3,12 +3,12 @@ import { ActivitySchema } from "@/lib/schemas/activity";
 
 export async function fetchActivities(query: string) {
   const locationResponse = await axios.get(
-    `${process.env.RAPIDAPI_URL!}/attraction/searchLocation`,
+    `${process.env.RAPIDAPI_URL!}/api/v1/attraction/searchLocation`,
     {
       params: { query, languagecode: "en-us" },
       headers: {
-        "x-rapidapi-key": process.env.RAPIDAPI_KEY!,
-        "x-rapidapi-host": process.env.RAPIDAPI_HOST!,
+        "X-RapidAPI-Key": process.env.RAPIDAPI_KEY!,
+        "X-RapidAPI-Host": process.env.RAPIDAPI_HOST!,
       },
     }
   );
@@ -17,7 +17,7 @@ export async function fetchActivities(query: string) {
   if (!locationId) throw new Error("Location not found");
 
   const activitiesResponse = await axios.get(
-    `${process.env.RAPIDAPI_URL!}/attraction/searchAttractions`,
+    `${process.env.RAPIDAPI_URL!}/api/v1/attraction/searchAttractions`,
     {
       params: {
         id: locationId,
@@ -27,8 +27,8 @@ export async function fetchActivities(query: string) {
         languagecode: "en-us",
       },
       headers: {
-        "x-rapidapi-key": process.env.RAPIDAPI_KEY!,
-        "x-rapidapi-host": process.env.RAPIDAPI_HOST!,
+        "X-RapidAPI-Key": process.env.RAPIDAPI_KEY!,
+        "X-RapidAPI-Host": process.env.RAPIDAPI_HOST!,
       },
     }
   );

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { useHotelsStore } from "./hotelStore";
-import { useActivitiesStore } from "./activityStore";
+import { useHotelStore } from "./hotelStore";
+import { useActivityStore } from "./activityStore";
 import { Hotel } from "../schemas/hotel";
 import { Activity } from "../schemas/activity";
 
@@ -52,11 +52,11 @@ export const useItineraryStore = create<ItineraryState>()(
         })),
 
       getFullItinerary: () => {
-        const hotels = useHotelsStore
+        const hotels = useHotelStore
           .getState()
           .hotels.filter((hotel) => get().hotelIds.includes(hotel.id));
 
-        const activities = useActivitiesStore
+        const activities = useActivityStore
           .getState()
           .activities.filter((activity) =>
             get().activityIds.includes(activity.id)

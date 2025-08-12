@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import LayoutClient from "../components/Layout/LayoutClient";
-import { Toaster } from "sonner";
+import Provider from "@/lib/providers/Provider";
 
 export const metadata: Metadata = {
   title: {
@@ -44,8 +44,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${fontPoppins.className} antialiased`}>
-        <Toaster position="top-right" expand={true} richColors />
-        <LayoutClient>{children}</LayoutClient>
+        <Provider>
+          <LayoutClient>{children}</LayoutClient>
+        </Provider>
       </body>
     </html>
   );

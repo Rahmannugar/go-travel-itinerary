@@ -24,7 +24,7 @@ const HotelList = ({ hotels, onDelete }: HotelListProps) => {
             <div className="p-4 md:p-6 md:pr-0 sm:pr-0">
               <div className="min-w-[232px] h-[250px] sm:h-full relative flex-shrink-0">
                 <Image
-                  src={hotel.photoUrls?.[0] || "/images/hotel.png"}
+                  src="/images/hotel.png"
                   alt={hotel.name}
                   fill
                   className="rounded object-cover"

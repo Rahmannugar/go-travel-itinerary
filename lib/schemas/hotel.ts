@@ -6,7 +6,6 @@ export const HotelSchema = z.object({
   reviewScore: z.number().optional(),
   reviewCount: z.number().optional(),
   currency: z.string().optional(),
-  photoUrls: z.array(z.string()).optional(),
   accessibilityLabel: z.string().optional(),
   checkinDate: z.string().optional(),
   checkoutDate: z.string().optional(),

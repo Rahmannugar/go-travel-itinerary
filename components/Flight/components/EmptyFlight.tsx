@@ -7,7 +7,7 @@ const EmptyFlight = () => {
       <EmptyPlaneIcon />
       <h2 className="font-medium text-sm">No Request yet</h2>
       <Link
-        href="/flights"
+        href="/flights/add-flight"
         className="bg-custom-primary hover:bg-custom-primary-hover transition-all hover:scale-105 duration-200 ease-out text-white text-sm rounded px-6 py-3 font-medium"
       >
         Add Flight

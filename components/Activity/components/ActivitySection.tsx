@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import ActivityIcon from "../icons/ActivityIcon";
 import ActivityList from "./ActivityList";
 import EmptyActivity from "./EmptyActivity";
-import { useActivitiesStore } from "@/lib/stores/activityStore";
+import { useActivityStore } from "@/lib/stores/activityStore";
 
 const mockActivity = {
   id: crypto.randomUUID(),
@@ -31,7 +31,7 @@ const mockActivity = {
 };
 
 const ActivitySection = () => {
-  const { activities, addActivity, removeActivity } = useActivitiesStore();
+  const { activities, addActivity, removeActivity } = useActivityStore();
 
   const handleAddActivity = () => {
     addActivity({ ...mockActivity, id: crypto.randomUUID() });

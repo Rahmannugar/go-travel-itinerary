@@ -9,6 +9,7 @@ export function useHotels(query: string) {
       const res = await axios.get(`/api/hotels?query=${query}`);
       return res.data;
     },
-    enabled: !!query,
+    enabled: false,
+    retry: false,
   });
 }

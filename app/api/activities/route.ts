@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchActivities } from "@/lib/services/activitiesService";
+import { fetchActivities } from "@/lib/services/activities";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
