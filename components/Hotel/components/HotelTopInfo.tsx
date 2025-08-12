@@ -2,6 +2,7 @@ import LocationIcon from "@/components/icons/LocationIcon";
 import RatingsIcon from "@/components/icons/RatingsIcon";
 import BedIcon from "../icons/BedIcon";
 import { Hotel } from "@/lib/schemas/hotel";
+import { formatCurrency } from "@/lib/utils/currency";
 
 interface HotelTopInfoProps {
   hotel: Hotel;
@@ -39,23 +40,20 @@ const HotelTopInfo = ({ hotel }: HotelTopInfoProps) => {
 
       <div className="flex flex-col">
         <h2 className="text-custom-black font-semibold text-lg lg:text-xl">
-          {hotel.priceBreakdown?.strikethroughPrice?.value.toLocaleString(
-            undefined,
-            {
-              style: "currency",
-              currency: hotel.priceBreakdown?.strikethroughPrice?.currency,
-            }
+          {formatCurrency(
+            hotel.priceBreakdown?.strikethroughPrice?.value || 0,
+            hotel.priceBreakdown?.strikethroughPrice?.currency
           )}
         </h2>
         <span className="text-custom-black font-medium text-sm">
           Total Price:{" "}
-          {hotel.priceBreakdown?.grossPrice?.value.toLocaleString(undefined, {
-            style: "currency",
-            currency: hotel.priceBreakdown?.grossPrice?.currency,
-          })}
+          {formatCurrency(
+            hotel.priceBreakdown?.grossPrice?.value || 0,
+            hotel.priceBreakdown?.grossPrice?.currency
+          )}
         </span>
         <span className="text-custom-black font-medium text-sm">
-          1 room x 30 nights incl. taxes
+          1 room x 10 nights incl. taxes
         </span>
       </div>
     </div>

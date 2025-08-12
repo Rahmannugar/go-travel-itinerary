@@ -5,6 +5,10 @@ import { useHotelStore } from "@/lib/stores/hotelStore";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Hotel } from "@/lib/schemas/hotel";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import HotelIcon from "../icons/HotelIcon";
+import HotelFormResult from "./HotelFormResult";
 
 interface SearchInputs {
   query: string;
@@ -14,83 +18,75 @@ const HotelForm = () => {
   const { register, handleSubmit, watch } = useForm<SearchInputs>();
   const query = watch("query");
   const { data: hotels, isLoading, refetch } = useHotels(query);
-  const { addHotel } = useHotelStore();
+  const { addHotel, removeHotel, hotels: savedHotels } = useHotelStore();
+  const [addingHotelId, setAddingHotelId] = useState<string | null>(null);
 
   const onSubmit = async () => {
     await refetch();
   };
 
-  const handleAddHotel = (hotel: Hotel) => {
+  const handleHotelAction = async (hotel: Hotel) => {
+    setAddingHotelId(hotel.id);
     try {
-      addHotel(hotel);
-      toast.success("Hotel added to itinerary!");
+      const isHotelSaved = savedHotels.some((h) => h.id === hotel.id);
+
+      if (isHotelSaved) {
+        removeHotel(hotel.id);
+        toast.success("Hotel removed from itinerary!");
+      } else {
+        addHotel(hotel);
+        toast.success("Hotel added to itinerary!");
+      }
     } catch (error) {
-      toast.error("Failed to add hotel");
+      toast.error("Failed to update hotel");
+    } finally {
+      setTimeout(() => setAddingHotelId(null), 1000);
     }
   };
 
+  const isHotelInItinerary = (hotelId: string) => {
+    return savedHotels.some((h) => h.id === hotelId);
+  };
+
   return (
-    <section className="space-y-6 p-4 md:p-6">
-      <div className="gap-3 flex flex-col">
-        <h1 className="md:text-lg font-semibold text-custom-black">
-          Search Hotels
-        </h1>
+    <section className="p-4 md:p-6">
+      <div className="bg-[#344054] p-4 md:p-6 rounded">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <HotelIcon />
+            <h1 className="text-white text-lg font-semibold">Search Hotels</h1>
+          </div>
+        </div>
+
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col sm:flex-row items-center gap-4"
+          className="flex flex-col sm:flex-row items-center gap-4 mb-6"
         >
           <input
             type="text"
             {...register("query", { required: true })}
             placeholder="Search city..."
-            className="border-2 p-6 rounded-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-custom-primary focus-visible:outline-none w-full text-base"
+            className="border-2 p-3 rounded-md bg-white focus:ring-2 font-medium focus:ring-custom-primary outline-custom-primary outline-none w-full text-base"
           />
-          <button
+          <Button
             type="submit"
-            disabled={isLoading}
-            className="bg-custom-primary text-white px-6 py-2 rounded hover:bg-custom-primary-hover transition-colors cursor-pointer disabled:opacity-50"
+            isLoading={isLoading}
+            className="bg-custom-primary text-white px-6 py-3 rounded font-medium hover:bg-custom-primary-hover transition-colors cursor-pointer disabled:opacity-50 min-w-[140px]"
           >
-            {isLoading ? "Searching..." : "Search"}
-          </button>
+            Search
+          </Button>
         </form>
-      </div>
 
-      {isLoading && (
-        <div className="text-center text-white">Loading hotels...</div>
-      )}
-
-      {hotels?.length === 0 && !isLoading && (
-        <div className="text-center text-white">No hotels found</div>
-      )}
-
-      {hotels && hotels.length > 0 && (
-        <div className="bg-white rounded-lg p-4">
-          <h2 className="text-lg font-semibold mb-4">Search Results</h2>
-          <ul className="space-y-4">
-            {hotels.map((hotel) => (
-              <li
-                key={hotel.id}
-                className="border rounded p-4 hover:shadow-md transition-shadow"
-              >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-semibold">{hotel.name}</h3>
-                    <p className="text-sm text-gray-600">
-                      {hotel.accessibilityLabel}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => handleAddHotel(hotel)}
-                    className="bg-custom-primary text-white px-4 py-2 rounded text-sm hover:bg-custom-primary-hover transition-colors"
-                  >
-                    Add to Itinerary
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
+        <div className="transition-all duration-300 ease-in-out">
+          <HotelFormResult
+            isLoading={isLoading}
+            hotels={hotels}
+            addingHotelId={addingHotelId}
+            handleHotelAction={handleHotelAction}
+            isHotelInItinerary={isHotelInItinerary}
+          />
         </div>
-      )}
+      </div>
     </section>
   );
 };

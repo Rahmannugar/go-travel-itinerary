@@ -7,6 +7,7 @@ export function useHotels(query: string) {
     queryKey: ["hotels", query],
     queryFn: async () => {
       const res = await axios.get(`/api/hotels?query=${query}`);
+      console.log("API Response:", res.data);
       return res.data;
     },
     enabled: false,

@@ -1,9 +1,9 @@
 import axios from "axios";
-import { HotelSchema } from "@/lib/schemas/hotel";
+import { HotelSchema, type Hotel } from "@/lib/schemas/hotel";
 
-export async function fetchHotels(query: string) {
-  const destinationResponse = await axios.get(
-    `${process.env.RAPIDAPI_URL!}/hotels/searchDestination`,
+export async function searchDestination(query: string) {
+  const response = await axios.get(
+    "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination",
     {
       params: { query },
       headers: {
@@ -13,15 +13,30 @@ export async function fetchHotels(query: string) {
     }
   );
 
-  const destinationId = destinationResponse.data.data?.[0]?.dest_id;
-  if (!destinationId) throw new Error("Destination not found");
+  const destinationId = response.data.data?.[0]?.dest_id;
+  const searchType = response.data.data?.[0]?.dest_type?.toUpperCase();
 
-  const hotelsResponse = await axios.get(
-    `${process.env.RAPIDAPI_URL!}/hotels/searchHotels`,
+  if (!destinationId) {
+    throw new Error("Destination not found");
+  }
+
+  return { destinationId, searchType };
+}
+
+export async function searchHotels(
+  destinationId: string,
+  searchType: string,
+  checkInDate: string,
+  checkOutDate: string
+) {
+  const response = await axios.get(
+    "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels",
     {
       params: {
         dest_id: destinationId,
-        search_type: "CITY",
+        search_type: searchType,
+        arrival_date: checkInDate,
+        departure_date: checkOutDate,
         adults: "1",
         children_age: "0,17",
         room_qty: "1",
@@ -38,7 +53,59 @@ export async function fetchHotels(query: string) {
     }
   );
 
-  return hotelsResponse.data.data
-    ?.slice(0, 5)
-    .map((h: any) => HotelSchema.parse(h));
+  return response.data.data?.hotels || [];
+}
+
+export function transformHotels(
+  hotels: any[],
+  checkInDate: string,
+  checkOutDate: string
+): Hotel[] {
+  return hotels.slice(0, 5).map((hotel: any) => ({
+    id: hotel.hotel_id?.toString() || "",
+    name: hotel.property?.name || "",
+    reviewScore: hotel.property?.reviewScore || 0,
+    reviewCount: hotel.property?.reviewCount || 0,
+    currency: hotel.property?.currency || "USD",
+    accessibilityLabel: hotel.accessibilityLabel || "",
+    checkinDate: checkInDate,
+    checkoutDate: checkOutDate,
+    priceBreakdown: {
+      grossPrice: {
+        value: hotel.property?.priceBreakdown?.grossPrice?.value || 0,
+        currency: hotel.property?.currency || "USD",
+      },
+      strikethroughPrice: {
+        value:
+          hotel.property?.priceBreakdown?.strikethroughPrice?.value ||
+          hotel.property?.priceBreakdown?.grossPrice?.value ||
+          0,
+        currency: hotel.property?.currency || "USD",
+      },
+    },
+  }));
+}
+
+//global function
+export async function fetchHotels(query: string) {
+  const today = new Date();
+  const checkInDate = today.toISOString().split("T")[0];
+  const checkOutDate = new Date(today.setDate(today.getDate() + 30))
+    .toISOString()
+    .split("T")[0];
+
+  const { destinationId, searchType } = await searchDestination(query);
+  const hotelsData = await searchHotels(
+    destinationId,
+    searchType,
+    checkInDate,
+    checkOutDate
+  );
+
+  const transformedHotels = transformHotels(
+    hotelsData,
+    checkInDate,
+    checkOutDate
+  );
+  return transformedHotels.map((hotel) => HotelSchema.parse(hotel));
 }

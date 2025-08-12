@@ -21,7 +21,7 @@ const FlightList = () => {
           </div>
         </div>
 
-        <div className="bg-custom-red cursor-pointer hover:bg-custom-red-hover active:bg-custom-red-hover duration-300 transition-colors ease-in-out flex w-full py-3 sm:py-0 sm:w-[46px] justify-center items-center rounded-r">
+        <div className="bg-custom-red cursor-pointer hover:bg-custom-red-hover active:bg-custom-red-hover duration-300 transition-colors ease-in-out flex w-full py-3 sm:py-0 sm:w-[72px] justify-center items-center rounded-r">
           <DeleteIcon />
         </div>
       </li>
