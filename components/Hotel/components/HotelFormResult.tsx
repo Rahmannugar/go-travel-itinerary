@@ -24,14 +24,7 @@ const HotelFormResult = ({
   handleHotelAction,
   isHotelInItinerary,
 }: HotelFormResultProps) => {
-  if (!hotels && !isLoading) {
-    return (
-      <div className="bg-white rounded min-h-[300px] flex items-center justify-center text-custom-black">
-        Enter a destination to search for hotels
-      </div>
-    );
-  }
-
+  // First check if it's loading
   if (isLoading) {
     return (
       <div className="min-h-[300px] flex items-center justify-center">
@@ -40,6 +33,16 @@ const HotelFormResult = ({
     );
   }
 
+  // Then check if hotels is undefined AND this is the initial state (no search performed)
+  if (!hotels && !isLoading) {
+    return (
+      <div className="bg-white rounded min-h-[300px] flex items-center justify-center text-custom-black">
+        Enter a destination to search for hotels
+      </div>
+    );
+  }
+
+  // Finally check if hotels array is empty or undefined after a search
   if (!hotels || hotels.length === 0) {
     return (
       <div className="bg-white rounded min-h-[300px] flex items-center justify-center text-custom-black">

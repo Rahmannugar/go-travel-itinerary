@@ -6,11 +6,18 @@ export function useHotels(query: string) {
   return useQuery<Hotel[]>({
     queryKey: ["hotels", query],
     queryFn: async () => {
-      const res = await axios.get(`/api/hotels?query=${query}`);
-      console.log("API Response:", res.data);
-      return res.data;
+      try {
+        const res = await axios.get(`/api/hotels?query=${query}`);
+        return res.data;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 404) {
+          return [];
+        }
+        throw error;
+      }
     },
     enabled: false,
     retry: false,
+    staleTime: 1000 * 60 * 5,
   });
 }
