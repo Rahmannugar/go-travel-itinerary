@@ -36,7 +36,7 @@ const HotelSection = () => {
     toast.success("Hotel added successfully!");
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     removeHotel(id);
     toast.success("Hotel removed successfully!");
 

@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import LayoutClient from "./LayoutClient";
+import LayoutClient from "../components/Layout/LayoutClient";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
-  title: "Go Travel Itinerary",
+  title: {
+    default: "Go Travels Itinerary",
+    template: "%s - Go Travels Itinerary",
+  },
   description:
-    "Go Travel Itinerary is your ultimate travel companion, helping you plan and organize your trips with ease.",
+    "Go Travels Itinerary is your ultimate travel companion, helping you plan and organize your trips with ease.",
   twitter: {
     card: "summary_large_image",
     creator: "@NugarRahman",

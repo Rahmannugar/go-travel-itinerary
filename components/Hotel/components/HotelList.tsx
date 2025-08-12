@@ -8,7 +8,7 @@ import { Hotel } from "@/lib/schemas/hotel";
 
 interface HotelListProps {
   hotels: Hotel[];
-  onDelete: (id: number) => void;
+  onDelete: (id: string) => void;
 }
 
 const HotelList = ({ hotels, onDelete }: HotelListProps) => {
