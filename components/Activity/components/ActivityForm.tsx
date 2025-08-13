@@ -77,7 +77,7 @@ const ActivityForm = () => {
           <Button
             type="submit"
             isLoading={isLoading}
-            className="bg-custom-black text-white px-6 py-3 rounded font-medium hover:bg-custom-secondary active:bg-custom-secondary transition-colors cursor-pointer disabled:opacity-50 min-w-[140px]"
+            className="bg-custom-black text-white px-6 py-3 rounded font-medium enabled:hover:bg-custom-secondary enabled:active:bg-custom-secondary transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed min-w-[140px]"
           >
             Search
           </Button>

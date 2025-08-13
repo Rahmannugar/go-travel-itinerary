@@ -13,7 +13,7 @@ export function useActivities(query: string) {
         if (axios.isAxiosError(error) && error.response?.status === 404) {
           return [];
         }
-        throw error;
+        return [];
       }
     },
     enabled: false,
