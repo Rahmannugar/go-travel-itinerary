@@ -71,7 +71,7 @@ const HotelForm = () => {
           <Button
             type="submit"
             isLoading={isLoading}
-            className="bg-custom-primary text-white px-6 py-3 rounded font-medium hover:bg-custom-primary-hover transition-colors cursor-pointer disabled:opacity-50 min-w-[140px]"
+            className="bg-custom-primary text-white px-6 py-3 rounded font-medium hover:bg-custom-primary-hover active:bg-custom-primary-hover transition-colors cursor-pointer disabled:opacity-50 min-w-[140px]"
           >
             Search
           </Button>

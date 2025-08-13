@@ -1,23 +1,29 @@
 import axios from "axios";
-import { ActivitySchema } from "@/lib/schemas/activity";
+import { ActivitySchema, type Activity } from "@/lib/schemas/activity";
 
-export async function fetchActivities(query: string) {
-  const locationResponse = await axios.get(
-    `${process.env.RAPIDAPI_URL!}/api/v1/attraction/searchLocation`,
+export async function searchLocation(query: string) {
+  const response = await axios.get(
+    `https://booking-com15.p.rapidapi.com/api/v1/attraction/searchLocation`,
     {
       params: { query, languagecode: "en-us" },
       headers: {
-        "X-RapidAPI-Key": process.env.RAPIDAPI_KEY!,
-        "X-RapidAPI-Host": process.env.RAPIDAPI_HOST!,
+        "x-rapidapi-key": process.env.RAPIDAPI_KEY!,
+        "x-rapidapi-host": process.env.RAPIDAPI_HOST!,
       },
     }
   );
 
-  const locationId = locationResponse.data.data?.[0]?.id;
-  if (!locationId) throw new Error("Location not found");
+  const locationId = response.data.data?.[0]?.id;
+  if (!locationId) {
+    throw new Error("Location not found");
+  }
 
-  const activitiesResponse = await axios.get(
-    `${process.env.RAPIDAPI_URL!}/api/v1/attraction/searchAttractions`,
+  return { locationId };
+}
+
+export async function searchActivities(locationId: string) {
+  const response = await axios.get(
+    `https://booking-com15.p.rapidapi.com/api/v1/attraction/searchAttractions`,
     {
       params: {
         id: locationId,
@@ -27,13 +33,43 @@ export async function fetchActivities(query: string) {
         languagecode: "en-us",
       },
       headers: {
-        "X-RapidAPI-Key": process.env.RAPIDAPI_KEY!,
-        "X-RapidAPI-Host": process.env.RAPIDAPI_HOST!,
+        "x-rapidapi-key": process.env.RAPIDAPI_KEY!,
+        "x-rapidapi-host": process.env.RAPIDAPI_HOST!,
       },
     }
   );
 
-  return activitiesResponse.data.data
-    ?.slice(0, 5)
-    .map((a: any) => ActivitySchema.parse(a));
+  return response.data.data || [];
+}
+
+export function transformActivities(activities: any[]): Activity[] {
+  return activities.slice(0, 5).map((activity: any) => ({
+    id: activity.id?.toString() || "",
+    name: activity.name || "",
+    shortDescription: activity.shortDescription || "",
+    representativePrice: {
+      chargeAmount: activity.representativePrice?.chargeAmount || 0,
+      currency: activity.representativePrice?.currency || "USD",
+      publicAmount: activity.representativePrice?.publicAmount || 0,
+    },
+    reviewsStats: {
+      allReviewsCount: activity.reviewsStats?.allReviewsCount || 0,
+      combinedNumericStats: {
+        average: activity.reviewsStats?.combinedNumericStats?.average || 0,
+      },
+    },
+    ufiDetails: {
+      bCityName: activity.ufiDetails?.bCityName || "",
+    },
+  }));
+}
+
+// global function
+export async function fetchActivities(query: string) {
+  const { locationId } = await searchLocation(query);
+  const activitiesData = await searchActivities(locationId);
+  const transformedActivities = transformActivities(activitiesData);
+  return transformedActivities.map((activity) =>
+    ActivitySchema.parse(activity)
+  );
 }

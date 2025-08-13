@@ -19,6 +19,7 @@ export const useHotelStore = create<HotelsState>()(
             ? state.hotels
             : [...state.hotels, hotel],
         }));
+        // Update global itinerary store
         useItineraryStore.getState().addHotelId(hotel.id);
       },
       removeHotel: (id) => {

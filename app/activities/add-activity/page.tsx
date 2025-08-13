@@ -1,9 +1,12 @@
-const AddActivity
- = () => {
+import ActivityForm from "@/components/Activity/components/ActivityForm";
+
+const AddActivity = () => {
   return (
-    <div>AddActivity
-        
-    </div>
-  )
-}
-export default AddActivity
+    <main>
+      <section>
+        <ActivityForm />
+      </section>
+    </main>
+  );
+};
+export default AddActivity;

@@ -92,32 +92,31 @@ const Panel = ({ isOpen, onClose }: PanelProps) => {
   return (
     <aside
       className={`
-        fixed top-0 left-0 w-full h-screen 
-        overflow-y-auto scrollbar-hide
+        fixed top-0 left-0 w-full h-full
         bg-white 
         transition-all duration-300 ease-in-out z-30
-        md:sticky md:top-6 md:h-[calc(100vh-3rem)]
+        md:sticky md:top-0 md:h-full
         md:w-[270px] lg:w-[300px] xl:w-[350px]
-        ${
-          isOpen
-            ? "translate-x-0 pt-20"
-            : "-translate-x-full pt-0 md:translate-x-0"
-        }
+        ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
       `}
     >
-      <div className="p-10">
-        {panelItems.map((item, index) => renderPanelItem(item, index))}
-      </div>
-
-      <div className="bg-background h-[86px] px-4 mx-6 flex items-center gap-2 justify-between sticky bottom-0 left-0">
-        <div className="bg-custom-primary cursor-pointer p-3 rounded flex items-center hover:scale-105 active:scale-105 transition-transform duration-200 ease-out active:hover:bg-custom-primary-hover">
-          <span className="text-sm text-white">Go</span>
+      <div className="flex flex-col h-full">
+        <div className="flex-1 overflow-y-auto">
+          <div className="p-10">
+            {panelItems.map((item, index) => renderPanelItem(item, index))}
+          </div>
         </div>
 
-        <span className="text-xs text-[#647995]">Personal Account</span>
+        <div className="bg-background h-[86px] px-4 mx-6 flex items-center gap-2 justify-between">
+          <div className="bg-custom-primary cursor-pointer p-3 rounded flex items-center hover:scale-105 active:scale-105 transition-transform duration-200 ease-out active:hover:bg-custom-primary-hover">
+            <span className="text-sm text-white">Go</span>
+          </div>
 
-        <div className="cursor-pointer hover:scale-110 active:scale-110 transition-transform duration-200 ease-out">
-          <NavigationIcon />
+          <span className="text-xs text-[#647995]">Personal Account</span>
+
+          <div className="cursor-pointer hover:scale-110 active:scale-110 transition-transform duration-200 ease-out">
+            <NavigationIcon />
+          </div>
         </div>
       </div>
     </aside>

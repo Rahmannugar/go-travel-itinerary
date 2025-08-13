@@ -1,4 +1,12 @@
+import ActivitySection from "@/components/Activity/components/ActivitySection";
+
 const Activities = () => {
-  return <div>Activities</div>;
+  return (
+    <main>
+      <section>
+        <ActivitySection />
+      </section>
+    </main>
+  );
 };
 export default Activities;

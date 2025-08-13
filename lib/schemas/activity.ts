@@ -11,11 +11,6 @@ export const ActivitySchema = z.object({
       publicAmount: z.number().optional(),
     })
     .optional(),
-  primaryPhoto: z
-    .object({
-      small: z.string().optional(),
-    })
-    .optional(),
   reviewsStats: z
     .object({
       allReviewsCount: z.number().optional(),

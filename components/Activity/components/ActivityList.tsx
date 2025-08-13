@@ -24,7 +24,7 @@ const ActivityList = ({ activities, onDelete }: ActivityListProps) => {
             <div className="p-4 md:p-6 md:pr-0 sm:pr-0">
               <div className="min-w-[232px] h-[250px] sm:h-full relative flex-shrink-0">
                 <Image
-                  src={activity.primaryPhoto?.small || "/images/activity.png"}
+                  src="/images/activity.png"
                   alt={activity.name}
                   fill
                   className="rounded object-cover"

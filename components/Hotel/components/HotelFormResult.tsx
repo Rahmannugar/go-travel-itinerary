@@ -1,7 +1,6 @@
 "use client";
 
 import { Hotel } from "@/lib/schemas/hotel";
-import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import HotelTopInfo from "./HotelTopInfo";
 import HotelBottomInfo from "./HotelBottomInfo";
@@ -24,7 +23,7 @@ const HotelFormResult = ({
   handleHotelAction,
   isHotelInItinerary,
 }: HotelFormResultProps) => {
-  // First check if it's loading
+  // check if fetch function is loading
   if (isLoading) {
     return (
       <div className="min-h-[300px] flex items-center justify-center">
@@ -33,19 +32,19 @@ const HotelFormResult = ({
     );
   }
 
-  // Then check if hotels is undefined AND this is the initial state (no search performed)
+  //check if hotels is undefined AND this is the initial state
   if (!hotels && !isLoading) {
     return (
-      <div className="bg-white rounded min-h-[300px] flex items-center justify-center text-custom-black">
+      <div className="bg-white rounded min-h-[300px] flex items-center justify-center text-center px-4 text-sm font-medium text-custom-black">
         Enter a destination to search for hotels
       </div>
     );
   }
 
-  // Finally check if hotels array is empty or undefined after a search
+  //check if hotels array is empty or undefined after a search
   if (!hotels || hotels.length === 0) {
     return (
-      <div className="bg-white rounded min-h-[300px] flex items-center justify-center text-custom-black">
+      <div className="bg-white rounded min-h-[300px] flex items-center justify-center text-center px-4 text-sm font-medium text-custom-black">
         No hotels found
       </div>
     );
@@ -106,8 +105,8 @@ const HotelFormResult = ({
             disabled={addingHotelId === hotel.id}
             className={`${
               isHotelInItinerary(hotel.id)
-                ? "bg-red-500 hover:bg-red-300"
-                : "bg-custom-primary hover:bg-custom-primary-hover"
+                ? "bg-red-500 hover:bg-red-300 active:bg-red-300"
+                : "bg-custom-primary hover:bg-custom-primary-hover active:bg-custom-primary-hover"
             } cursor-pointer transition-colors duration-300 ease-in-out flex w-full py-3 sm:py-0 sm:w-[72px] justify-center items-center rounded-r`}
           >
             <span className="text-white text-sm font-medium">

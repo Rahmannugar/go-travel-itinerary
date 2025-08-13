@@ -4,50 +4,20 @@ import { toast } from "sonner";
 import ActivityIcon from "../icons/ActivityIcon";
 import ActivityList from "./ActivityList";
 import EmptyActivity from "./EmptyActivity";
+import Link from "next/link";
 import { useActivityStore } from "@/lib/stores/activityStore";
 
-const mockActivity = {
-  id: crypto.randomUUID(),
-  name: "The Museum of Modern Art",
-  shortDescription:
-    "Works from Van Gogh to Warhol & beyond plus a sculpture garden",
-  representativePrice: {
-    chargeAmount: 123000,
-    currency: "NGN",
-    publicAmount: 145000,
-  },
-  primaryPhoto: {
-    small: "/images/activity.png",
-  },
-  reviewsStats: {
-    allReviewsCount: 234,
-    combinedNumericStats: {
-      average: 4.5,
-    },
-  },
-  ufiDetails: {
-    bCityName: "New York",
-  },
-};
-
 const ActivitySection = () => {
-  const { activities, addActivity, removeActivity } = useActivityStore();
-
-  const handleAddActivity = () => {
-    addActivity({ ...mockActivity, id: crypto.randomUUID() });
-    toast.success("Activity added successfully!");
-  };
+  const { activities, removeActivity } = useActivityStore();
 
   const handleDelete = (id: string) => {
     removeActivity(id);
     toast.success("Activity removed successfully!");
 
     if (activities.length === 1) {
-      setTimeout(() => {
-        toast("No activities in your itinerary", {
-          description: "Add activities to your travel plan",
-        });
-      }, 300);
+      toast("No activities in your itinerary", {
+        description: "Add activities to your travel plan",
+      });
     }
   };
 
@@ -61,12 +31,12 @@ const ActivitySection = () => {
           </div>
 
           <div>
-            <button
-              onClick={handleAddActivity}
+            <Link
+              href="/activities/add-activity"
               className="font-medium text-sm cursor-pointer text-custom-black transition-colors hover:text-white hover:bg-custom-secondary active:text-white active:bg-custom-secondary ease-in-out duration-200 bg-white w-full py-3 px-6 rounded"
             >
               Add Activities
-            </button>
+            </Link>
           </div>
         </div>
 
