@@ -2,6 +2,8 @@ import LocationIcon from "@/components/icons/LocationIcon";
 import RatingsIcon from "@/components/icons/RatingsIcon";
 import TimeIcon from "../icons/TimeIcon";
 import { Activity } from "@/lib/schemas/activity";
+import { formatCurrency } from "@/lib/utils/currency";
+import { generateRandomTime } from "@/lib/utils/time";
 
 interface ActivityTopInfoProps {
   activity: Activity;
@@ -39,16 +41,17 @@ const ActivityTopInfo = ({ activity }: ActivityTopInfoProps) => {
 
       <div className="flex flex-col">
         <h2 className="text-custom-black font-semibold text-lg lg:text-xl">
-          {activity.representativePrice?.chargeAmount?.toLocaleString("en-NG", {
-            style: "currency",
-            currency: activity.representativePrice?.currency || "NGN",
-          })}
+          {formatCurrency(
+            activity.representativePrice?.chargeAmount || 0,
+            activity.representativePrice?.currency
+          )}
         </h2>
         <span className="text-custom-black font-medium text-sm">
-          10:30 AM on Mar 19
+          {generateRandomTime()}
         </span>
       </div>
     </div>
   );
 };
+
 export default ActivityTopInfo;

@@ -17,16 +17,27 @@ interface SearchInputs {
 const ActivityForm = () => {
   const { register, handleSubmit, watch } = useForm<SearchInputs>();
   const query = watch("query");
-  const { data: activities, isLoading, refetch } = useActivities(query);
+  const { mutate, isPending, data: activities, error } = useActivities();
   const {
     addActivity,
     removeActivity,
     activities: savedActivities,
   } = useActivityStore();
   const [addingActivityId, setAddingActivityId] = useState<string | null>(null);
+  const [hasSearched, setHasSearched] = useState(false);
 
   const onSubmit = async () => {
-    await refetch();
+    if (!query?.trim()) return;
+
+    mutate(query, {
+      onSuccess: () => {
+        setHasSearched(true);
+      },
+      onError: () => {
+        setHasSearched(true);
+        toast.error("Failed to fetch activities. Please try again.");
+      },
+    });
   };
 
   const handleActivityAction = async (activity: Activity) => {
@@ -76,7 +87,7 @@ const ActivityForm = () => {
           />
           <Button
             type="submit"
-            isLoading={isLoading}
+            isLoading={isPending}
             className="bg-custom-black text-white px-6 py-3 rounded font-medium enabled:hover:bg-custom-secondary enabled:active:bg-custom-secondary transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed min-w-[140px]"
           >
             Search
@@ -85,11 +96,13 @@ const ActivityForm = () => {
 
         <div className="transition-all duration-300 ease-in-out">
           <ActivityFormResult
-            isLoading={isLoading}
+            isLoading={isPending}
             activities={activities}
             addingActivityId={addingActivityId}
             handleActivityAction={handleActivityAction}
             isActivityInItinerary={isActivityInItinerary}
+            error={error}
+            hasSearched={hasSearched}
           />
         </div>
       </div>

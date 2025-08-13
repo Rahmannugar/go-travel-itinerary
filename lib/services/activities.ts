@@ -1,11 +1,14 @@
 import axios from "axios";
 import { ActivitySchema, type Activity } from "@/lib/schemas/activity";
 
-export async function searchLocation(query: string) {
+async function searchDestination(query: string) {
   const response = await axios.get(
-    `https://booking-com15.p.rapidapi.com/api/v1/attraction/searchLocation`,
+    "https://booking-com15.p.rapidapi.com/api/v1/attraction/searchLocation",
     {
-      params: { query, languagecode: "en-us" },
+      params: {
+        query,
+        languagecode: "en-us",
+      },
       headers: {
         "x-rapidapi-key": process.env.RAPIDAPI_KEY!,
         "x-rapidapi-host": process.env.RAPIDAPI_HOST!,
@@ -13,17 +16,16 @@ export async function searchLocation(query: string) {
     }
   );
 
-  const locationId = response.data.data?.[0]?.id;
+  const locationId = response.data.data.destinations?.[0]?.id;
   if (!locationId) {
     throw new Error("Location not found");
   }
-
-  return { locationId };
+  return locationId;
 }
 
-export async function searchActivities(locationId: string) {
+async function searchActivities(locationId: string) {
   const response = await axios.get(
-    `https://booking-com15.p.rapidapi.com/api/v1/attraction/searchAttractions`,
+    "https://booking-com15.p.rapidapi.com/api/v1/attraction/searchAttractions",
     {
       params: {
         id: locationId,
@@ -39,12 +41,12 @@ export async function searchActivities(locationId: string) {
     }
   );
 
-  return response.data.data || [];
+  return response.data.data.products || [];
 }
 
-export function transformActivities(activities: any[]): Activity[] {
+function transformActivities(activities: any[]): Activity[] {
   return activities.slice(0, 5).map((activity: any) => ({
-    id: activity.id?.toString() || "",
+    id: activity.id || "",
     name: activity.name || "",
     shortDescription: activity.shortDescription || "",
     representativePrice: {
@@ -64,9 +66,8 @@ export function transformActivities(activities: any[]): Activity[] {
   }));
 }
 
-// global function
 export async function fetchActivities(query: string) {
-  const { locationId } = await searchLocation(query);
+  const locationId = await searchDestination(query);
   const activitiesData = await searchActivities(locationId);
   const transformedActivities = transformActivities(activitiesData);
   return transformedActivities.map((activity) =>

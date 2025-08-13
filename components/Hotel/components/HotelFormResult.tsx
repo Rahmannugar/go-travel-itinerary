@@ -14,6 +14,8 @@ interface HotelFormResultProps {
   addingHotelId: string | null;
   handleHotelAction: (hotel: Hotel) => Promise<void>;
   isHotelInItinerary: (hotelId: string) => boolean;
+  error: Error | null;
+  hasSearched: boolean;
 }
 
 const HotelFormResult = ({
@@ -22,8 +24,9 @@ const HotelFormResult = ({
   addingHotelId,
   handleHotelAction,
   isHotelInItinerary,
+  error,
+  hasSearched,
 }: HotelFormResultProps) => {
-  // check if fetch function is loading
   if (isLoading) {
     return (
       <div className="min-h-[300px] flex items-center justify-center">
@@ -32,8 +35,7 @@ const HotelFormResult = ({
     );
   }
 
-  //check if hotels is undefined AND this is the initial state
-  if (!hotels && !isLoading) {
+  if (!hasSearched) {
     return (
       <div className="bg-white rounded min-h-[300px] flex items-center justify-center text-center px-4 text-sm font-medium text-custom-black">
         Enter a destination to search for hotels
@@ -41,11 +43,18 @@ const HotelFormResult = ({
     );
   }
 
-  //check if hotels array is empty or undefined after a search
+  if (error) {
+    return (
+      <div className="bg-white rounded min-h-[300px] flex items-center justify-center text-center px-4 text-sm font-medium text-custom-black">
+        No hotels found. Please try a different location.
+      </div>
+    );
+  }
+
   if (!hotels || hotels.length === 0) {
     return (
       <div className="bg-white rounded min-h-[300px] flex items-center justify-center text-center px-4 text-sm font-medium text-custom-black">
-        No hotels found
+        No hotels found. Please try a different location.
       </div>
     );
   }

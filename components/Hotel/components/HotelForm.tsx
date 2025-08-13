@@ -17,12 +17,23 @@ interface SearchInputs {
 const HotelForm = () => {
   const { register, handleSubmit, watch } = useForm<SearchInputs>();
   const query = watch("query");
-  const { data: hotels, isLoading, refetch } = useHotels(query);
+  const { mutate, isPending, data: hotels, error } = useHotels();
   const { addHotel, removeHotel, hotels: savedHotels } = useHotelStore();
   const [addingHotelId, setAddingHotelId] = useState<string | null>(null);
+  const [hasSearched, setHasSearched] = useState(false);
 
   const onSubmit = async () => {
-    await refetch();
+    if (!query?.trim()) return;
+
+    mutate(query, {
+      onSuccess: () => {
+        setHasSearched(true);
+      },
+      onError: () => {
+        setHasSearched(true);
+        toast.error("Failed to fetch hotels. Please try again.");
+      },
+    });
   };
 
   const handleHotelAction = async (hotel: Hotel) => {
@@ -70,7 +81,7 @@ const HotelForm = () => {
           />
           <Button
             type="submit"
-            isLoading={isLoading}
+            isLoading={isPending}
             className="bg-custom-primary text-white px-6 py-3 rounded font-medium enabled:hover:bg-custom-primary-hover enabled:active:bg-custom-primary-hover transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed min-w-[140px]"
           >
             Search
@@ -79,11 +90,13 @@ const HotelForm = () => {
 
         <div className="transition-all duration-300 ease-in-out">
           <HotelFormResult
-            isLoading={isLoading}
+            isLoading={isPending}
             hotels={hotels}
             addingHotelId={addingHotelId}
             handleHotelAction={handleHotelAction}
             isHotelInItinerary={isHotelInItinerary}
+            error={error}
+            hasSearched={hasSearched}
           />
         </div>
       </div>

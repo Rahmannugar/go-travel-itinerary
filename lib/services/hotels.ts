@@ -107,5 +107,6 @@ export async function fetchHotels(query: string) {
     checkInDate,
     checkOutDate
   );
+  
   return transformedHotels.map((hotel) => HotelSchema.parse(hotel));
 }

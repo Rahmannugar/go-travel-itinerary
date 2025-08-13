@@ -11,13 +11,14 @@ export async function GET(req: Request) {
 
   try {
     const activities = await fetchActivities(query);
-
     return NextResponse.json(activities);
-  } catch (err: any) {
-    console.error("Activities API Error:", err.message);
-    return NextResponse.json(
-      { error: "Failed to fetch activities" },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Activities API Error:", error.message);
+      return NextResponse.json(
+        { error: "Failed to fetch activities" },
+        { status: 500 }
+      );
+    }
   }
 }

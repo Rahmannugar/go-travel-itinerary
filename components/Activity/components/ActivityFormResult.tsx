@@ -15,6 +15,8 @@ interface ActivityFormResultProps {
   addingActivityId: string | null;
   handleActivityAction: (activity: Activity) => Promise<void>;
   isActivityInItinerary: (activityId: string) => boolean;
+  error: Error | null;
+  hasSearched: boolean;
 }
 
 const ActivityFormResult = ({
@@ -23,8 +25,9 @@ const ActivityFormResult = ({
   addingActivityId,
   handleActivityAction,
   isActivityInItinerary,
+  hasSearched = false,
+  error,
 }: ActivityFormResultProps) => {
-  // check if fetch function is loading
   if (isLoading) {
     return (
       <div className="min-h-[300px] flex items-center justify-center">
@@ -33,8 +36,7 @@ const ActivityFormResult = ({
     );
   }
 
-  //check if activities is undefined AND this is the initial state
-  if (!activities && !isLoading) {
+  if (!hasSearched) {
     return (
       <div className="bg-white rounded min-h-[300px] flex items-center justify-center text-center px-4 text-sm font-medium text-custom-black">
         Enter a destination to search for activities
@@ -42,11 +44,18 @@ const ActivityFormResult = ({
     );
   }
 
-  //check if activities array is empty or undefined after a search
+  if (error) {
+    return (
+      <div className="bg-white rounded min-h-[300px] flex items-center justify-center text-center px-4 text-sm font-medium text-custom-black">
+        No activities found. Please try a different location.
+      </div>
+    );
+  }
+
   if (!activities || activities.length === 0) {
     return (
-      <div className="bg-white rounded min-h-[300px] flex items-center justify-center text-center text-sm font-medium text-custom-black">
-        No activities found
+      <div className="bg-white rounded min-h-[300px] flex items-center justify-center text-center px-4 text-sm font-medium text-custom-black">
+        No activities found. Please try a different location.
       </div>
     );
   }
@@ -107,7 +116,7 @@ const ActivityFormResult = ({
             className={`${
               isActivityInItinerary(activity.id)
                 ? "bg-red-500 hover:bg-red-300 active:bg-red-300"
-                : "bg-custom-primary hover:bg-custom-primary-hover active:bg-custom-primary-hover"
+                : "bg-custom-black hover:bg-custom-secondary active:bg-custom-secondary"
             } cursor-pointer transition-colors duration-300 ease-in-out flex w-full py-3 sm:py-0 sm:w-[72px] justify-center items-center rounded-r`}
           >
             <span className="text-white text-sm font-medium">
