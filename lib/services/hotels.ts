@@ -53,6 +53,7 @@ export async function searchHotels(
     }
   );
 
+  //console.log(response.data.data?.hotels);
   return response.data.data?.hotels || [];
 }
 
@@ -107,6 +108,6 @@ export async function fetchHotels(query: string) {
     checkInDate,
     checkOutDate
   );
-  
+
   return transformedHotels.map((hotel) => HotelSchema.parse(hotel));
 }

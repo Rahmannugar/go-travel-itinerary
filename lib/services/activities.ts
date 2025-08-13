@@ -1,7 +1,15 @@
 import axios from "axios";
 import { ActivitySchema, type Activity } from "@/lib/schemas/activity";
 
-async function searchDestination(query: string) {
+const COUNTRY_CURRENCY_MAP: Record<string, string> = {
+  jp: "JPY",
+  gb: "GBP",
+  us: "USD",
+  eu: "EUR",
+  in: "INR",
+};
+
+export async function searchDestination(query: string) {
   const response = await axios.get(
     "https://booking-com15.p.rapidapi.com/api/v1/attraction/searchLocation",
     {
@@ -16,14 +24,24 @@ async function searchDestination(query: string) {
     }
   );
 
-  const locationId = response.data.data.destinations?.[0]?.id;
-  if (!locationId) {
+  const location = response.data.data?.[0];
+  if (!location) {
     throw new Error("Location not found");
   }
-  return locationId;
+
+  const countryCode = location.countryCode?.toLowerCase();
+  const currencyCode = COUNTRY_CURRENCY_MAP[countryCode] || "USD";
+
+  return {
+    locationId: location.id,
+    currencyCode,
+  };
 }
 
-async function searchActivities(locationId: string) {
+export async function searchActivities(
+  locationId: string,
+  currencyCode: string
+) {
   const response = await axios.get(
     "https://booking-com15.p.rapidapi.com/api/v1/attraction/searchAttractions",
     {
@@ -31,7 +49,7 @@ async function searchActivities(locationId: string) {
         id: locationId,
         sortBy: "trending",
         page: "1",
-        currency_code: "USD",
+        currency_code: currencyCode,
         languagecode: "en-us",
       },
       headers: {
@@ -41,17 +59,20 @@ async function searchActivities(locationId: string) {
     }
   );
 
-  return response.data.data.products || [];
+  return response.data.data?.products || [];
 }
 
-function transformActivities(activities: any[]): Activity[] {
-  return activities.slice(0, 5).map((activity: any) => ({
+export function transformActivities(
+  activitiesData: any[],
+  currencyCode: string
+): Activity[] {
+  return activitiesData.slice(0, 5).map((activity: any) => ({
     id: activity.id || "",
     name: activity.name || "",
     shortDescription: activity.shortDescription || "",
     representativePrice: {
       chargeAmount: activity.representativePrice?.chargeAmount || 0,
-      currency: activity.representativePrice?.currency || "USD",
+      currency: currencyCode,
       publicAmount: activity.representativePrice?.publicAmount || 0,
     },
     reviewsStats: {
@@ -66,10 +87,15 @@ function transformActivities(activities: any[]): Activity[] {
   }));
 }
 
+// global function
 export async function fetchActivities(query: string) {
-  const locationId = await searchDestination(query);
-  const activitiesData = await searchActivities(locationId);
-  const transformedActivities = transformActivities(activitiesData);
+  const { locationId, currencyCode } = await searchDestination(query);
+  const activitiesData = await searchActivities(locationId, currencyCode);
+  const transformedActivities = transformActivities(
+    activitiesData,
+    currencyCode
+  );
+
   return transformedActivities.map((activity) =>
     ActivitySchema.parse(activity)
   );
