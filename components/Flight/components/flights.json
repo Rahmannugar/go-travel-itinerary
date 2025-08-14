@@ -1,0 +1,35 @@
+[
+  {
+    "segments": [
+      {
+        "departureAirport": {
+          "code": "JFK",
+          "type": "AIRPORT",
+          "city": "New York",
+          "cityName": "New York",
+          "country": "US",
+          "countryName": "United States"
+        },
+        "arrivalAirport": {
+          "code": "LHR",
+          "type": "AIRPORT",
+          "city": "London",
+          "cityName": "London",
+          "country": "GB",
+          "countryName": "United Kingdom"
+        },
+        "totalTime": 480,
+        "legs": [
+          {
+            "cabinClass": "Economy",
+            "flightInfo": { "flightNumber": 1001 },
+            "carrierInfo": { "operatingCarrier": "MockAir" }
+          }
+        ]
+      }
+    ],
+    "priceBreakdown": {
+      "total": { "currencyCode": "USD", "units": 500 }
+    }
+  }
+]
