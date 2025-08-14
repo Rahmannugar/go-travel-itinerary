@@ -15,7 +15,9 @@ export const useActivityStore = create<ActivitiesState>()(
       activities: [],
       addActivity: (activity) => {
         set((state) => ({
-          activities: [...state.activities, activity],
+          activities: state.activities.find((a) => a.id === activity.id)
+            ? state.activities
+            : [...state.activities, activity],
         }));
         // Update global itinerary store
         useItineraryStore.getState().addActivityId(activity.id);

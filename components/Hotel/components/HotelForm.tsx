@@ -49,7 +49,7 @@ const HotelForm = () => {
         toast.success("Hotel added to itinerary!");
       }
     } catch (error) {
-      toast.error("Failed to update hotel");
+      toast.error("Failed to update hotels");
     } finally {
       setTimeout(() => setAddingHotelId(null), 1000);
     }

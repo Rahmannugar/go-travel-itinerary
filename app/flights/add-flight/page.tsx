@@ -1,4 +1,12 @@
+import FlightForm from "@/components/Flight/components/FlightForm";
+
 const AddFlight = () => {
-  return <div>AddFlight</div>;
+  return (
+    <main>
+      <section>
+        <FlightForm />
+      </section>
+    </main>
+  );
 };
 export default AddFlight;

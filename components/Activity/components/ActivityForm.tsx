@@ -53,7 +53,7 @@ const ActivityForm = () => {
         toast.success("Activity added to itinerary!");
       }
     } catch (error) {
-      toast.error("Failed to update activity");
+      toast.error("Failed to update activities");
     } finally {
       setTimeout(() => setAddingActivityId(null), 1000);
     }
