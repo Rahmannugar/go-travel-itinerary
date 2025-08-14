@@ -41,7 +41,7 @@ const FlightForm = () => {
       arrivalDate: null,
     },
   });
-  const { mutate, isPending, data: flights, error } = useFlights();
+  const { mutate, isPending, data: flights, error } = useFlights(); // eslint-disable-line @typescript-eslint/no-unused-vars
   const { addFlight, removeFlight, flights: savedFlights } = useFlightStore();
   const [addingFlightId, setAddingFlightId] = useState<string | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
@@ -75,7 +75,6 @@ const FlightForm = () => {
         onError: () => {
           setHasSearched(true);
           toast.error("Failed to fetch flights. Please try again.");
-          console.error("Error fetching flights:", error);
         },
       }
     );

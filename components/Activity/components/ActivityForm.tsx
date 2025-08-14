@@ -17,7 +17,7 @@ interface SearchInputs {
 const ActivityForm = () => {
   const { register, handleSubmit, watch } = useForm<SearchInputs>();
   const query = watch("query");
-  const { mutate, isPending, data: activities, error } = useActivities();
+  const { mutate, isPending, data: activities, error } = useActivities(); // eslint-disable-line @typescript-eslint/no-unused-vars
   const {
     addActivity,
     removeActivity,
@@ -36,7 +36,6 @@ const ActivityForm = () => {
       onError: () => {
         setHasSearched(true);
         toast.error("Failed to fetch activities. Please try again.");
-        console.error("Error fetching activities:", error);
       },
     });
   };

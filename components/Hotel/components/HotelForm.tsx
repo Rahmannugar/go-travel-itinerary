@@ -17,7 +17,7 @@ interface SearchInputs {
 const HotelForm = () => {
   const { register, handleSubmit, watch } = useForm<SearchInputs>();
   const query = watch("query");
-  const { mutate, isPending, data: hotels, error } = useHotels();
+  const { mutate, isPending, data: hotels, error } = useHotels(); // eslint-disable-line @typescript-eslint/no-unused-vars
   const { addHotel, removeHotel, hotels: savedHotels } = useHotelStore();
   const [addingHotelId, setAddingHotelId] = useState<string | null>(null);
   const [hasSearched, setHasSearched] = useState(false);

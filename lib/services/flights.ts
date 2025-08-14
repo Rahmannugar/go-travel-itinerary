@@ -128,8 +128,18 @@ export function transformFlights(flightsData: unknown[]): Flight[] {
       ],
       priceBreakdown: {
         total: {
-          currencyCode: (obj.priceBreakdown as any)?.total?.currencyCode ?? "",
-          units: (obj.priceBreakdown as any)?.total?.units ?? 0,
+          currencyCode:
+            ((
+              (obj.priceBreakdown as Record<string, unknown>)?.total as
+                | Record<string, unknown>
+                | undefined
+            )?.currencyCode as string) ?? "",
+          units:
+            ((
+              (obj.priceBreakdown as Record<string, unknown>)?.total as
+                | Record<string, unknown>
+                | undefined
+            )?.units as number) ?? 0,
         },
       },
     };
