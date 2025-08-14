@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { toast } from "sonner";
 import EmptyHotel from "./EmptyHotel";
 import HotelList from "./HotelList";
@@ -9,16 +10,20 @@ import Link from "next/link";
 
 const HotelSection = () => {
   const { hotels, removeHotel } = useHotelStore();
+  const prevLength = useRef(hotels.length);
 
-  const handleDelete = (id: string) => {
-    removeHotel(id);
-    toast.success("Hotel removed successfully!");
-
-    if (hotels.length === 1) {
+  useEffect(() => {
+    if (prevLength.current > 0 && hotels.length === 0) {
       toast("No hotels in your itinerary", {
         description: "Add hotels to your travel plan",
       });
     }
+    prevLength.current = hotels.length;
+  }, [hotels.length]);
+
+  const handleDelete = (id: string) => {
+    removeHotel(id);
+    toast.success("Hotel removed successfully!");
   };
 
   return (

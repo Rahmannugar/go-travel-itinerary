@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { toast } from "sonner";
 import ActivityIcon from "../icons/ActivityIcon";
 import ActivityList from "./ActivityList";
@@ -9,16 +10,20 @@ import { useActivityStore } from "@/lib/stores/activityStore";
 
 const ActivitySection = () => {
   const { activities, removeActivity } = useActivityStore();
+  const prevLength = useRef(activities.length);
 
-  const handleDelete = (id: string) => {
-    removeActivity(id);
-    toast.success("Activity removed successfully!");
-
-    if (activities.length === 1) {
+  useEffect(() => {
+    if (prevLength.current > 0 && activities.length === 0) {
       toast("No activities in your itinerary", {
         description: "Add activities to your travel plan",
       });
     }
+    prevLength.current = activities.length;
+  }, [activities.length]);
+
+  const handleDelete = (id: string) => {
+    removeActivity(id);
+    toast.success("Activity removed successfully!");
   };
 
   return (

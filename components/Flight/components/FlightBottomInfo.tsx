@@ -16,9 +16,7 @@ const FlightBottomInfo = () => {
 
       <div className="flex items-center gap-2">
         <FilmIcon />
-        <span className="text-sm font-medium">
-          In flight entertainment
-        </span>
+        <span className="text-sm font-medium">In flight entertainment</span>
       </div>
 
       <div className="flex items-center gap-2">

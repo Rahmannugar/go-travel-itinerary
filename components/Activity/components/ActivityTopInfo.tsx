@@ -3,7 +3,7 @@ import RatingsIcon from "@/components/icons/RatingsIcon";
 import TimeIcon from "../icons/TimeIcon";
 import { Activity } from "@/lib/schemas/activity";
 import { formatCurrency } from "@/lib/utils/currency";
-import { generateRandomTime } from "@/lib/utils/time";
+import { generateRandomTime } from "@/lib/utils/randomTimeGenerator";
 
 interface ActivityTopInfoProps {
   activity: Activity;
