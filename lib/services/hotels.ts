@@ -58,33 +58,39 @@ export async function searchHotels(
 }
 
 export function transformHotels(
-  hotels: any[],
+  hotels: unknown[],
   checkInDate: string,
   checkOutDate: string
 ): Hotel[] {
-  return hotels.slice(0, 5).map((hotel: any) => ({
-    id: hotel.hotel_id?.toString() || "",
-    name: hotel.property?.name || "",
-    reviewScore: hotel.property?.reviewScore || 0,
-    reviewCount: hotel.property?.reviewCount || 0,
-    currency: hotel.property?.currency || "USD",
-    accessibilityLabel: hotel.accessibilityLabel || "",
-    checkinDate: checkInDate,
-    checkoutDate: checkOutDate,
-    priceBreakdown: {
-      grossPrice: {
-        value: hotel.property?.priceBreakdown?.grossPrice?.value || 0,
-        currency: hotel.property?.currency || "USD",
+  return hotels.slice(0, 5).map((hotel) => {
+    const h =
+      typeof hotel === "object" && hotel !== null
+        ? (hotel as Record<string, any>)
+        : {};
+    return {
+      id: h.hotel_id?.toString() || "",
+      name: h.property?.name || "",
+      reviewScore: h.property?.reviewScore || 0,
+      reviewCount: h.property?.reviewCount || 0,
+      currency: h.property?.currency || "USD",
+      accessibilityLabel: h.accessibilityLabel || "",
+      checkinDate: checkInDate,
+      checkoutDate: checkOutDate,
+      priceBreakdown: {
+        grossPrice: {
+          value: h.property?.priceBreakdown?.grossPrice?.value || 0,
+          currency: h.property?.currency || "USD",
+        },
+        strikethroughPrice: {
+          value:
+            h.property?.priceBreakdown?.strikethroughPrice?.value ||
+            h.property?.priceBreakdown?.grossPrice?.value ||
+            0,
+          currency: h.property?.currency || "USD",
+        },
       },
-      strikethroughPrice: {
-        value:
-          hotel.property?.priceBreakdown?.strikethroughPrice?.value ||
-          hotel.property?.priceBreakdown?.grossPrice?.value ||
-          0,
-        currency: hotel.property?.currency || "USD",
-      },
-    },
-  }));
+    };
+  });
 }
 
 //global function

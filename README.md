@@ -2,6 +2,8 @@
 
 A  travel companion app that helps you create and manage your travel plans efficiently.
 
+
+
 ## Local Setup
 
 1. Clone the repository:

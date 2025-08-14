@@ -63,28 +63,34 @@ export async function searchActivities(
 }
 
 export function transformActivities(
-  activitiesData: any[],
+  activitiesData: unknown[],
   currencyCode: string
 ): Activity[] {
-  return activitiesData.slice(0, 5).map((activity: any) => ({
-    id: activity.id || "",
-    name: activity.name || "",
-    shortDescription: activity.shortDescription || "",
-    representativePrice: {
-      chargeAmount: activity.representativePrice?.chargeAmount || 0,
-      currency: currencyCode,
-      publicAmount: activity.representativePrice?.publicAmount || 0,
-    },
-    reviewsStats: {
-      allReviewsCount: activity.reviewsStats?.allReviewsCount || 0,
-      combinedNumericStats: {
-        average: activity.reviewsStats?.combinedNumericStats?.average || 0,
+  return activitiesData.slice(0, 5).map((activity) => {
+    const a =
+      typeof activity === "object" && activity !== null
+        ? (activity as Record<string, any>)
+        : {};
+    return {
+      id: a.id || "",
+      name: a.name || "",
+      shortDescription: a.shortDescription || "",
+      representativePrice: {
+        chargeAmount: a.representativePrice?.chargeAmount || 0,
+        currency: currencyCode,
+        publicAmount: a.representativePrice?.publicAmount || 0,
       },
-    },
-    ufiDetails: {
-      bCityName: activity.ufiDetails?.bCityName || "",
-    },
-  }));
+      reviewsStats: {
+        allReviewsCount: a.reviewsStats?.allReviewsCount || 0,
+        combinedNumericStats: {
+          average: a.reviewsStats?.combinedNumericStats?.average || 0,
+        },
+      },
+      ufiDetails: {
+        bCityName: a.ufiDetails?.bCityName || "",
+      },
+    };
+  });
 }
 
 // global function

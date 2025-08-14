@@ -10,7 +10,7 @@ export const formatCurrency = (amount: number, currency?: string) => {
       style: "currency",
       currency: userCurrency,
     }).format(amount);
-  } catch (error) {
+  } catch (_error) {
     // Fallback function
     return new Intl.NumberFormat("en-US", {
       style: "currency",

@@ -52,11 +52,13 @@ export async function searchFlights(
   return res.data?.flights || [];
 }
 
-export function transformFlights(flightsData: any[]): Flight[] {
-  return flightsData.slice(0, 5).map((f: any) => {
-    const s = f.segments?.[0] ?? {};
+export function transformFlights(flightsData: unknown[]): Flight[] {
+  return flightsData.slice(0, 5).map((f) => {
+    const obj =
+      typeof f === "object" && f !== null ? (f as Record<string, any>) : {};
+    const s = obj.segments?.[0] ?? {};
     return {
-      token: f.token,
+      token: String(obj.token ?? ""),
       segments: [
         {
           departureAirport: {
@@ -93,8 +95,8 @@ export function transformFlights(flightsData: any[]): Flight[] {
       ],
       priceBreakdown: {
         total: {
-          currencyCode: f.priceBreakdown?.total?.currencyCode ?? "",
-          units: f.priceBreakdown?.total?.units ?? 0,
+          currencyCode: obj.priceBreakdown?.total?.currencyCode ?? "",
+          units: obj.priceBreakdown?.total?.units ?? 0,
         },
       },
     };
