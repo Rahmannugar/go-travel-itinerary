@@ -69,25 +69,35 @@ export function transformActivities(
   return activitiesData.slice(0, 5).map((activity) => {
     const a =
       typeof activity === "object" && activity !== null
-        ? (activity as Record<string, any>)
+        ? (activity as Record<string, unknown>)
         : {};
+
+    const representativePrice = a.representativePrice as
+      | Record<string, unknown>
+      | undefined;
+    const reviewsStats = a.reviewsStats as Record<string, unknown> | undefined;
+    const combinedNumericStats = reviewsStats?.combinedNumericStats as
+      | Record<string, unknown>
+      | undefined;
+    const ufiDetails = a.ufiDetails as Record<string, unknown> | undefined;
+
     return {
-      id: a.id || "",
-      name: a.name || "",
-      shortDescription: a.shortDescription || "",
+      id: (a.id as string) || "",
+      name: (a.name as string) || "",
+      shortDescription: (a.shortDescription as string) || "",
       representativePrice: {
-        chargeAmount: a.representativePrice?.chargeAmount || 0,
+        chargeAmount: (representativePrice?.chargeAmount as number) || 0,
         currency: currencyCode,
-        publicAmount: a.representativePrice?.publicAmount || 0,
+        publicAmount: (representativePrice?.publicAmount as number) || 0,
       },
       reviewsStats: {
-        allReviewsCount: a.reviewsStats?.allReviewsCount || 0,
+        allReviewsCount: (reviewsStats?.allReviewsCount as number) || 0,
         combinedNumericStats: {
-          average: a.reviewsStats?.combinedNumericStats?.average || 0,
+          average: (combinedNumericStats?.average as number) || 0,
         },
       },
       ufiDetails: {
-        bCityName: a.ufiDetails?.bCityName || "",
+        bCityName: (ufiDetails?.bCityName as string) || "",
       },
     };
   });

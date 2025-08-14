@@ -36,6 +36,7 @@ const ActivityForm = () => {
       onError: () => {
         setHasSearched(true);
         toast.error("Failed to fetch activities. Please try again.");
+        console.error("Error fetching activities:", error);
       },
     });
   };

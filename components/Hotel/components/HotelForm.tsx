@@ -50,6 +50,7 @@ const HotelForm = () => {
       }
     } catch (error) {
       toast.error("Failed to update hotels");
+      console.error("Error fetching hotels:", error);
     } finally {
       setTimeout(() => setAddingHotelId(null), 1000);
     }

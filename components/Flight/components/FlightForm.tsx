@@ -75,6 +75,7 @@ const FlightForm = () => {
         onError: () => {
           setHasSearched(true);
           toast.error("Failed to fetch flights. Please try again.");
+          console.error("Error fetching flights:", error);
         },
       }
     );

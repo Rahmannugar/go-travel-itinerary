@@ -1,6 +1,5 @@
 "use client";
 
-import { Hotel } from "@/lib/schemas/hotel";
 import { Spinner } from "@/components/ui/spinner";
 import Image from "next/image";
 import LeftSliderIcon from "../../icons/LeftSliderIcon";

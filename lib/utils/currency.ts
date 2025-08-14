@@ -10,8 +10,9 @@ export const formatCurrency = (amount: number, currency?: string) => {
       style: "currency",
       currency: userCurrency,
     }).format(amount);
-  } catch (_error) {
+  } catch (error) {
     // Fallback function
+    console.error("Error formatting currency:", error);
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",

@@ -13,7 +13,9 @@ export async function searchAirport(query: string) {
     }
   );
   // Find the first result with type "AIRPORT"
-  const airport = res.data?.data?.find((item: any) => item.type === "AIRPORT");
+  const airport = res.data?.data?.find(
+    (item: Record<string, unknown>) => item.type === "AIRPORT"
+  );
   if (!airport) throw new Error(`Airport not found: ${query}`);
   //   console.log("Selected airport:", airport);
   return airport.id;
@@ -55,48 +57,79 @@ export async function searchFlights(
 export function transformFlights(flightsData: unknown[]): Flight[] {
   return flightsData.slice(0, 5).map((f) => {
     const obj =
-      typeof f === "object" && f !== null ? (f as Record<string, any>) : {};
-    const s = obj.segments?.[0] ?? {};
+      typeof f === "object" && f !== null ? (f as Record<string, unknown>) : {};
+    const segments = obj.segments as unknown[] | undefined;
+    const s = segments?.[0] as Record<string, unknown> | undefined;
+
+    const departureAirport = s?.departureAirport as
+      | Record<string, unknown>
+      | undefined;
+    const arrivalAirport = s?.arrivalAirport as
+      | Record<string, unknown>
+      | undefined;
+
+    // Convert to Date
+    const departureTime = s?.departureTime
+      ? new Date(s.departureTime as string)
+      : new Date();
+    const arrivalTime = s?.arrivalTime
+      ? new Date(s.arrivalTime as string)
+      : new Date();
+
     return {
       token: String(obj.token ?? ""),
       segments: [
         {
           departureAirport: {
-            code: s.departureAirport?.code ?? "",
-            type: s.departureAirport?.type ?? "",
-            city: s.departureAirport?.city ?? "",
-            cityName: s.departureAirport?.cityName ?? "",
-            country: s.departureAirport?.country ?? "",
-            countryName: s.departureAirport?.countryName ?? "",
+            code: (departureAirport?.code as string) || "",
+            type: (departureAirport?.type as string) || "",
+            city: (departureAirport?.city as string) || "",
+            cityName: (departureAirport?.cityName as string) || "",
+            country: (departureAirport?.country as string) || "",
+            countryName: (departureAirport?.countryName as string) || "",
           },
           arrivalAirport: {
-            code: s.arrivalAirport?.code ?? "",
-            type: s.arrivalAirport?.type ?? "",
-            city: s.arrivalAirport?.city ?? "",
-            cityName: s.arrivalAirport?.cityName ?? "",
-            country: s.arrivalAirport?.country ?? "",
-            countryName: s.arrivalAirport?.countryName ?? "",
+            code: (arrivalAirport?.code as string) || "",
+            type: (arrivalAirport?.type as string) || "",
+            city: (arrivalAirport?.city as string) || "",
+            cityName: (arrivalAirport?.cityName as string) || "",
+            country: (arrivalAirport?.country as string) || "",
+            countryName: (arrivalAirport?.countryName as string) || "",
           },
-          departureTime: s.departureTime,
-          arrivalTime: s.arrivalTime,
-          totalTime: s.totalTime,
-          legs: (s.legs ?? []).map((l: any) => ({
-            departureTime: l.departureTime,
-            arrivalTime: l.arrivalTime,
-            cabinClass: l.cabinClass,
-            flightInfo: {
-              flightNumber: l.flightInfo?.flightNumber ?? 0,
-            },
-            carrierInfo: {
-              operatingCarrier: l.carrierInfo?.operatingCarrier ?? "",
-            },
-          })),
+          departureTime,
+          arrivalTime,
+          totalTime: (s?.totalTime as number) || 0,
+          legs: ((s?.legs as unknown[]) ?? []).map((l) => {
+            const leg = l as Record<string, unknown>;
+            const flightInfo = leg.flightInfo as
+              | Record<string, unknown>
+              | undefined;
+            const carrierInfo = leg.carrierInfo as
+              | Record<string, unknown>
+              | undefined;
+            return {
+              departureTime: leg.departureTime
+                ? new Date(leg.departureTime as string)
+                : new Date(),
+              arrivalTime: leg.arrivalTime
+                ? new Date(leg.arrivalTime as string)
+                : new Date(),
+              cabinClass: leg.cabinClass as string,
+              flightInfo: {
+                flightNumber: (flightInfo?.flightNumber as number) ?? 0,
+              },
+              carrierInfo: {
+                operatingCarrier:
+                  (carrierInfo?.operatingCarrier as string) ?? "",
+              },
+            };
+          }),
         },
       ],
       priceBreakdown: {
         total: {
-          currencyCode: obj.priceBreakdown?.total?.currencyCode ?? "",
-          units: obj.priceBreakdown?.total?.units ?? 0,
+          currencyCode: (obj.priceBreakdown as any)?.total?.currencyCode ?? "",
+          units: (obj.priceBreakdown as any)?.total?.units ?? 0,
         },
       },
     };

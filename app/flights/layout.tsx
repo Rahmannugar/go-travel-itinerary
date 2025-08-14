@@ -1,5 +1,4 @@
 import Image from "next/image";
-import HotelLayout from "../hotels/layout";
 
 interface FlightLayoutProps {
   children: React.ReactNode;
@@ -29,6 +28,6 @@ export default FlightLayout;
 export const generateMetadata = () => {
   return {
     title: "Flights",
-    description: "",
+    description: "Find the best flight options for your travel needs.",
   };
 };
