@@ -162,7 +162,7 @@ const FlightForm = () => {
             control={control}
             render={({ field }) => (
               <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger className="border-2 py-6 px-3 rounded-md bg-white text-custom-black focus:ring-2 font-medium focus:ring-custom-primary outline-custom-primary outline-none w-full text-base">
+                <SelectTrigger className="border-2 py-[22px] px-3 rounded-md bg-white text-custom-black focus:ring-2 font-medium focus:ring-custom-primary outline-custom-primary outline-none w-full text-base">
                   <SelectValue placeholder="Cabin Class" />
                 </SelectTrigger>
                 <SelectContent>

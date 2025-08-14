@@ -34,7 +34,11 @@ const FlightSection = () => {
             <AirplaneIcon />
             <h1 className="text-custom-black text-lg font-semibold">Flights</h1>
           </div>
-          <div>
+          <div className="flex flex-col items-center gap-2">
+            <button className="font-medium text-sm cursor-pointer hover:bg-white hover:text-custom-primary transition-colors ease-in-out duration-200 bg-custom-primary text-white w-full py-3 px-6 rounded inline-block">
+              Add Mock Flights
+            </button>
+
             <Link
               href="/flights/add-flight"
               className="font-medium text-sm cursor-pointer hover:bg-custom-primary hover:text-white transition-colors ease-in-out duration-200 bg-white text-custom-primary w-full py-3 px-6 rounded inline-block"
