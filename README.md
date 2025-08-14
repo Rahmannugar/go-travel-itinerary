@@ -17,7 +17,7 @@ A simple, scalable travel itinerary platform built with **Next.js App Router**. 
   Due to frequent API failures, a mock flight option is available for demo/testing.
 
 - **Local Storage:**  
-  Flights are saved to local storage using Zustand for persistence.
+ Itinerary is saved to local storage using Zustand for persistence.
 
 ---
 
