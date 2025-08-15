@@ -7,7 +7,7 @@ import { useState } from "react";
 import ActivityIcon from "../icons/ActivityIcon";
 import ActivityFormResult from "./ActivityFormResult";
 import { useActivityStore } from "@/lib/stores/activityStore";
-import { useActivities } from "@/hooks/useActivity";
+import { useActivities } from "@/lib/hooks/useActivity";
 import { Activity } from "@/lib/schemas/activity";
 
 interface SearchInputs {

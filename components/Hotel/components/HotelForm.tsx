@@ -1,6 +1,6 @@
 "use client";
 
-import { useHotels } from "@/hooks/useHotel";
+import { useHotels } from "@/lib/hooks/useHotel";
 import { useHotelStore } from "@/lib/stores/hotelStore";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";

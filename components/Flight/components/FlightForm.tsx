@@ -7,7 +7,7 @@ import { useState } from "react";
 import AirplaneIcon from "../icons/AirplaneIcon";
 import { Flight } from "@/lib/schemas/flight";
 import { useFlightStore } from "@/lib/stores/flightStore";
-import { useFlights } from "@/hooks/useFlight";
+import { useFlights } from "@/lib/hooks/useFlight";
 import ByteDatePicker from "byte-datepicker";
 import "byte-datepicker/styles.css";
 import {

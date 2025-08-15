@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useNavigation } from "@/hooks/useNavigation";
+import { useNavigation } from "@/lib/hooks/useNavigation";
 import ActivityIcon from "./icons/ActivityIcon";
 import AidkitIcon from "./icons/AidkitIcon";
 import FlightIcon from "./icons/FlightIcon";

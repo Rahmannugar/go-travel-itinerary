@@ -2,7 +2,7 @@
 
 import Navbar from "@/components/Navbar/Navbar";
 import Panel from "@/components/Panel/Panel";
-import { useMenuToggle } from "@/hooks/useMenuToggle";
+import { useMenuToggle } from "@/lib/hooks/useMenuToggle";
 
 const LayoutClient = ({ children }: { children: React.ReactNode }) => {
   const { isOpen, handleToggle } = useMenuToggle();
